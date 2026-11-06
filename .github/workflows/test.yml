@@ -10,8 +10,9 @@ permissions:
 
 jobs:
   test:
-    # Same Ubuntu release as the maintainer's WSL. No mingw here: its download from the runner's Ubuntu mirror took over 5 minutes in every attempt, so
-    # kdec-build.test.ts skips its rebuild-and-compare check (run it locally after changing the native source).
+    # Same Ubuntu release as the maintainer's WSL. No mingw here: its download from the runner's Ubuntu mirror took
+    # over 5 minutes in every attempt, so kdec-build.test.ts skips its rebuild-and-compare check (run it locally
+    # after changing the native source).
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
