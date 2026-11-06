@@ -10,8 +10,8 @@ permissions:
 
 jobs:
   test:
-    # Same Ubuntu release as the maintainer's WSL, so mingw matches and the committed kdec.exe can be rebuilt
-    # byte for byte (kdec-build.test.ts).
+    # Same Ubuntu release as the maintainer's WSL. No mingw here: its download from the runner's Ubuntu mirror took over 5 minutes in every attempt, so
+    # kdec-build.test.ts skips its rebuild-and-compare check (run it locally after changing the native source).
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
@@ -22,11 +22,6 @@ jobs:
         with:
           node-version: 22 # the engines floor
           cache: npm
-      # Best effort: the Ubuntu mirror can be very slow. Without mingw, kdec-build.test.ts skips the rebuild-and-compare
-      # check instead of blocking the run. The win32 variant is the one that built the committed kdec.exe.
-      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends g++-mingw-w64-x86-64-win32
-        timeout-minutes: 5
-        continue-on-error: true
       - run: npm ci
       - run: npm run build:native
       - run: npm run build
