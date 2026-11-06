@@ -1,0 +1,7 @@
+{
+  "_comment": "Current Quest Rewards bonus fractions from Customer Management skills; used for every day's quests, as in the game's ledger.",
+  "QuestSkill1": 0.06,
+  "QuestSkill2": 0.06,
+  "QuestSkill3": 0.08,
+  "QuestSkill4": 0.08
+}

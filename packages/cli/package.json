@@ -1,0 +1,14 @@
+{
+  "name": "@af-ledger/cli",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "bin": {
+    "af-ledger": "dist/af-ledger.mjs"
+  },
+  "dependencies": {
+    "@af-ledger/core": "*",
+    "sharp": "0.35.5"
+  }
+}

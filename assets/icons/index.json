@@ -1,0 +1,1101 @@
+{
+  "_source": {
+    "files": [
+      {
+        "name": "AlchemyFactory-Windows.utoc",
+        "size": 2204701,
+        "modified": "2026-10-16T16:54:07.547Z"
+      },
+      {
+        "name": "AlchemyFactory-Windows.ucas",
+        "size": 2982622432,
+        "modified": "2026-10-16T16:54:07.547Z"
+      }
+    ],
+    "asset": "DataTables/DT_Enemies.uasset",
+    "rows": 180,
+    "skipped": [
+      "DriedClay"
+    ]
+  },
+  "AdPortalSigil": {
+    "file": "AdPortalSigil.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GrandPortalSigil",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "AdvancedFertilizer": {
+    "file": "AdvancedFertilizer.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_AdFertilizerSack",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "AlchemistSigh": {
+    "file": "AlchemistSigh.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_AlchemistSigh",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Aloe": {
+    "file": "Aloe.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Aloe",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "AloePaste": {
+    "file": "AloePaste.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_AloePaste",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "AloeSeed": {
+    "file": "AloeSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_AloeSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Amethyst": {
+    "file": "Amethyst.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Amethyst",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "AquaVitae": {
+    "file": "AquaVitae.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_AquaVitae",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Bandage": {
+    "file": "Bandage.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Bandage",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "BasicFertilizer": {
+    "file": "BasicFertilizer.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FertilizerSack",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "BlackPowder": {
+    "file": "BlackPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Gunpowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "BlastPotion": {
+    "file": "BlastPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_BlastPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Brandy": {
+    "file": "Brandy.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Brandy",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Brick": {
+    "file": "Brick.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Brick",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "BronzeIngot": {
+    "file": "BronzeIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_BronzeIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "BronzeRivet": {
+    "file": "BronzeRivet.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_BronzeRivet",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Cart": {
+    "file": "Cart.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Wagon",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CashRegister": {
+    "file": "CashRegister.png",
+    "texturePath": "/Game/Arts/UI/Furnitures/T_UI_CashRegister",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Catalyst1": {
+    "file": "Catalyst1.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_UnstableCatalyst",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Catalyst2": {
+    "file": "Catalyst2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FertileCatalyst",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Catalyst3": {
+    "file": "Catalyst3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ResonantCatalyst",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Catalyst4": {
+    "file": "Catalyst4.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_EternalCatalyst",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Ceramics": {
+    "file": "Ceramics.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Ceramics",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Chamomile": {
+    "file": "Chamomile.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Chamomile",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "ChamomilePowder": {
+    "file": "ChamomilePowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ChamomilePowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "ChamomileSeed": {
+    "file": "ChamomileSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ChamomileSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Charcoal": {
+    "file": "Charcoal.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Charcoal",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CharcoalPowder": {
+    "file": "CharcoalPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CharcoalPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CharismaPotion": {
+    "file": "CharismaPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CharismaPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Clay": {
+    "file": "Clay.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Clay",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "ClayPowder": {
+    "file": "ClayPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ClayPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "ClockworkBird": {
+    "file": "ClockworkBird.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ClockworkBird",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Coal": {
+    "file": "Coal.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Coal",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CoalOre": {
+    "file": "CoalOre.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CoalOre",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Coke": {
+    "file": "Coke.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Coke",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CokePowder": {
+    "file": "CokePowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CokePowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperAmulet": {
+    "file": "CopperAmulet.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperAmulet",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperBearing": {
+    "file": "CopperBearing.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperBearing",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperCoin": {
+    "file": "CopperCoin.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperCoin",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperIngot": {
+    "file": "CopperIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperPowder": {
+    "file": "CopperPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "CopperPowder2": {
+    "file": "CopperPowder2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CopperPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Crown": {
+    "file": "Crown.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Crown",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Crystal1": {
+    "file": "Crystal1.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FracturedCrystal",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Crystal2": {
+    "file": "Crystal2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RoughCrystal",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Crystal3": {
+    "file": "Crystal3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PolishedCrystal",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Diamond1": {
+    "file": "Diamond1.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RadiantDiamond",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Diamond2": {
+    "file": "Diamond2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FlawlessDiamond",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Diamond3": {
+    "file": "Diamond3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PerfectDiamond",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "DriedClay": {
+    "file": "DriedClay.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_DriedClay",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Emerald": {
+    "file": "Emerald.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Emerald",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FairyDust": {
+    "file": "FairyDust.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FairyDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FairyTear": {
+    "file": "FairyTear.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FairyTear",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FineBandage": {
+    "file": "FineBandage.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FineBandage",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FireBrick": {
+    "file": "FireBrick.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FireBrick",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Flax": {
+    "file": "Flax.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Flax",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FlaxFiber": {
+    "file": "FlaxFiber.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FlaxFiber",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FlaxSeed": {
+    "file": "FlaxSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FlaxSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "FruitWine": {
+    "file": "FruitWine.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FruitWine",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "GelatinousGridlock": {
+    "file": "GelatinousGridlock.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GelatinousGridlock",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Gentian": {
+    "file": "Gentian.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Gentian",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GentianNectar": {
+    "file": "GentianNectar.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GentianNectar",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GentianPowder": {
+    "file": "GentianPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GentianPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GentianSeed": {
+    "file": "GentianSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GentianSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Glass": {
+    "file": "Glass.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Glass",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GloomFungus": {
+    "file": "GloomFungus.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GloomFungus",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GloomSpores": {
+    "file": "GloomSpores.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GloomSpores",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldCoin": {
+    "file": "GoldCoin.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldCoin",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldDust": {
+    "file": "GoldDust.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldDust2": {
+    "file": "GoldDust2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldDust3": {
+    "file": "GoldDust3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldDust4": {
+    "file": "GoldDust4.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldDust5": {
+    "file": "GoldDust5.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GoldIngot": {
+    "file": "GoldIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GoldIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Granite": {
+    "file": "Granite.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Granite",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "GrowthPotion": {
+    "file": "GrowthPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_GrowthPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "HealingPotion": {
+    "file": "HealingPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_HealingPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "InvisbilityPotion": {
+    "file": "InvisbilityPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_InvisbilityPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "IronAmulet": {
+    "file": "IronAmulet.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_IronAmulet",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "IronIngot": {
+    "file": "IronIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_IronIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "IronOre": {
+    "file": "IronOre.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_IronOre",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "IronSand": {
+    "file": "IronSand.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_IronSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Jupiter": {
+    "file": "Jupiter.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Jupiter",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LapisLazuli": {
+    "file": "LapisLazuli.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LapisLazuli",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LargeWoodGear": {
+    "file": "LargeWoodGear.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LargeWoodenGear",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Lavender": {
+    "file": "Lavender.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Lavender",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LavenderDream": {
+    "file": "LavenderDream.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LavenderDream",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LavenderEssentialOil": {
+    "file": "LavenderEssentialOil.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LavenderEssentialOil",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "LavenderSeed": {
+    "file": "LavenderSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LavenderSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Limestone": {
+    "file": "Limestone.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Stone",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Limewater": {
+    "file": "Limewater.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Limewater",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Linen": {
+    "file": "Linen.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Linen",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LinenRope": {
+    "file": "LinenRope.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_FlaxRope",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LinenThread": {
+    "file": "LinenThread.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LinenThread",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "LinseedOil": {
+    "file": "LinseedOil.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LinseedOil",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Luna": {
+    "file": "Luna.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Luna",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Malachite": {
+    "file": "Malachite.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Malachite",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "ManaPotion": {
+    "file": "ManaPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ManaPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Marble": {
+    "file": "Marble.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Marble",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Mars": {
+    "file": "Mars.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Mars",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Mercury": {
+    "file": "Mercury.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Quicksilver",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "MercuryP": {
+    "file": "MercuryP.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Mercury",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Meteorite": {
+    "file": "Meteorite.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Meteorite",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "MoonTear": {
+    "file": "MoonTear.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_MoonTear",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "MoonlitSoap": {
+    "file": "MoonlitSoap.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_MoonlitSoap",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Mors": {
+    "file": "Mors.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_MorsEssence",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Mortar": {
+    "file": "Mortar.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Mortar",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Nails": {
+    "file": "Nails.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Nails",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Obsidian": {
+    "file": "Obsidian.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Obsidian",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PanaceaElixir": {
+    "file": "PanaceaElixir.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PanaceaElixir",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PerfumedSoap": {
+    "file": "PerfumedSoap.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PerfumedSoap",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PerfumedSoapPowder": {
+    "file": "PerfumedSoapPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PerfumedSoapPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PhilosopherStone": {
+    "file": "PhilosopherStone.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PhilosopherStone",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PlantAsh": {
+    "file": "PlantAsh.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PlantAsh",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PocketWatch": {
+    "file": "PocketWatch.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PocketWatch",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "PortalSigil": {
+    "file": "PortalSigil.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PortalSigil",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Pottery": {
+    "file": "Pottery.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Pottery",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Pyrite": {
+    "file": "Pyrite.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_PyriteOre",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "QuartzOre": {
+    "file": "QuartzOre.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_QuartzOre",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Quicklime": {
+    "file": "Quicklime.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_QuickLime",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "QuicklimePowder": {
+    "file": "QuicklimePowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_QuicklimePowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Redcurrant": {
+    "file": "Redcurrant.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Redcurrant",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "RedcurrantSeed": {
+    "file": "RedcurrantSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RedcurrantSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "RockSalt": {
+    "file": "RockSalt.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RockSalt",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "RottenLog": {
+    "file": "RottenLog.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RottenLog",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Ruby": {
+    "file": "Ruby.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Ruby",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sage": {
+    "file": "Sage.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Sage",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SagePowder": {
+    "file": "SagePowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SagePowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SageSeed": {
+    "file": "SageSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SageSeedBag",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Salt": {
+    "file": "Salt.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Salt",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SaltWater": {
+    "file": "SaltWater.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SaltWater",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Salve": {
+    "file": "Salve.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Salve",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand": {
+    "file": "Sand.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Sand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand2": {
+    "file": "Sand2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand3": {
+    "file": "Sand3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand4": {
+    "file": "Sand4.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand5": {
+    "file": "Sand5.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand6": {
+    "file": "Sand6.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand7": {
+    "file": "Sand7.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sand8": {
+    "file": "Sand8.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_RefinedSand",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sapphire": {
+    "file": "Sapphire.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Sapphire",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Saturn": {
+    "file": "Saturn.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Saturn",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Shard1": {
+    "file": "Shard1.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_CrudeShard",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Shard2": {
+    "file": "Shard2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_ChippedShard",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Shard3": {
+    "file": "Shard3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_DullShard",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverAmulet": {
+    "file": "SilverAmulet.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverAmulet",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverCoin": {
+    "file": "SilverCoin.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverCoin",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverIngot": {
+    "file": "SilverIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverPowder": {
+    "file": "SilverPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverPowder2": {
+    "file": "SilverPowder2.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SilverPowder3": {
+    "file": "SilverPowder3.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SilverPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Soap": {
+    "file": "Soap.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Soap",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SoapPowder": {
+    "file": "SoapPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SoapPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sol": {
+    "file": "Sol.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Sol",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "StarDust": {
+    "file": "StarDust.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_StarDust",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Steam": {
+    "file": "Steam.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_steam",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SteelGear": {
+    "file": "SteelGear.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SteelGear",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SteelIngot": {
+    "file": "SteelIngot.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_LeadIngot",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Stone": {
+    "file": "Stone.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Limestone",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "StrangeTide": {
+    "file": "StrangeTide.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_StrangeTide",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Sulfur": {
+    "file": "Sulfur.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Sulfur",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SulfurPowder": {
+    "file": "SulfurPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SulfurPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "SulfuricAcid": {
+    "file": "SulfuricAcid.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SulfuricAcid",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "Topaz": {
+    "file": "Topaz.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Topaz",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Turquoise": {
+    "file": "Turquoise.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Turquoise",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Venus": {
+    "file": "Venus.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Venus",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Vitae": {
+    "file": "Vitae.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_VitaeEssence",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "VitalityPotion": {
+    "file": "VitalityPotion.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_VitalityPotion",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "VolcanicAsh": {
+    "file": "VolcanicAsh.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_VolcanicAsh",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WhisperingFields": {
+    "file": "WhisperingFields.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_WhisperingFields",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "Wood": {
+    "file": "Wood.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_Wood",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WoodAcid": {
+    "file": "WoodAcid.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_WoodAcid",
+    "sourceWidth": 128,
+    "sourceHeight": 128
+  },
+  "WoodBoard": {
+    "file": "WoodBoard.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_WoodBoard",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WoodGear": {
+    "file": "WoodGear.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_SmallWoodenGear",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WoodPulley": {
+    "file": "WoodPulley.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_WoodPulley",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WorldTreeCore": {
+    "file": "WorldTreeCore.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_YggdrasillCore",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WorldTreeLeaf": {
+    "file": "WorldTreeLeaf.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_YggdrasillLeaf",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WorldTreeSeed": {
+    "file": "WorldTreeSeed.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_YggdrasillSeed",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "WorldTreeVintage": {
+    "file": "WorldTreeVintage.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_WorldtreeVintage",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  },
+  "YeastPowder": {
+    "file": "YeastPowder.png",
+    "texturePath": "/Game/Arts/UI/Ingredients/T_UI_YeastPowder",
+    "sourceWidth": 512,
+    "sourceHeight": 512
+  }
+}

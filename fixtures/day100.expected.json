@@ -1,0 +1,33 @@
+{
+  "_comment": "Transcribed from in-game 'Daily Summary, Day 100' screenshots (saveDay 99), save '1 Point Oh', SaveGame3.sav. No quests submitted this day. [count, coin, amount].",
+  "displayDay": 100,
+  "saveDay": 99,
+  "profitCoef": 1.2,
+  "shopIncome": {
+    "WoodGear": [38, "copper", 608], "CopperBearing": [74, "copper", 44400], "Glass": [75, "copper", 11250],
+    "Salt": [78, "copper", 15600], "Soap": [71, "copper", 8520], "BlackPowder": [82, "copper", 108240],
+    "ManaPotion": [111, "copper", 122433], "Linen": [45, "copper", 14850], "HealingPotion": [111, "copper", 16761],
+    "WoodPulley": [42, "copper", 3696], "Brick": [18, "copper", 2520], "LargeWoodGear": [144, "copper", 1440],
+    "SteelGear": [66, "copper", 59400], "LinenRope": [30, "copper", 2160], "VitalityPotion": [151, "copper", 88637],
+    "Nails": [102, "copper", 3264], "GrowthPotion": [112, "copper", 243936], "StrangeTide": [83, "copper", 239787],
+    "Bandage": [24, "copper", 16800], "Malachite": [23, "copper", 33764], "Mortar": [38, "copper", 3648],
+    "BronzeRivet": [82, "copper", 19680], "WhisperingFields": [48, "copper", 32256], "Turquoise": [23, "copper", 9591],
+    "Jupiter": [2, "silver", 76]
+  },
+  "orderIncome": { "GloomSpores": [100, "silver", 38], "Bandage": [300, "silver", 72] },
+  "questRewards": { "silver": 0, "copper": 0 },
+  "purchasingCost": {
+    "GelatinousGridlock": [480, "copper", 48000], "Limestone": [306, "copper", 183600], "RockSalt": [47, "silver", 423],
+    "RottenLog": [74, "copper", 148000], "Wood": [77, "copper", 15400], "IronOre": [13, "copper", 15600],
+    "CoalOre": [19, "copper", 91200], "Pyrite": [5, "silver", 55]
+  },
+  "summaryScreen": {
+    "earnings": { "silver": 186, "copper": 1103241 },
+    "expenses": { "silver": 478, "copper": 501800 },
+    "profitCopper": 309441
+  },
+  "totals": {
+    "shopCopperEquiv": 1179241, "orderCopperEquiv": 110000, "questCopperEquiv": 0,
+    "purchasingCopperEquiv": 979800, "netCopperEquiv": 309441
+  }
+}

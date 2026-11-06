@@ -1,0 +1,57 @@
+@source "./";
+.app-shell { max-width: 1280px; margin-inline: auto; padding-block: var(--space-6) var(--space-8); }
+.today-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+@media (min-width: 900px) { .today-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+.strip-tiles { display: flex; gap: var(--space-2); }
+.strip-tile { flex: 1 0 72px; }
+.summary-table table { min-width: 600px; }
+.summary-table tbody tr:has(.type-heading) td { border-top: 1px solid var(--line-strong); }
+.summary-table tbody tr:has(.type-kpi) td { border-top: 2px solid var(--line-strong); padding-block: var(--space-3); }
+
+@media (max-width: 639px) {
+  .summary-table table { min-width: 0; }
+  .summary-table th, .summary-table td { padding-inline: var(--space-1); }
+  .summary-table .change-percent { display: none; }
+  .summary-table .share-visual { min-width: 0; }
+  .summary-table .share-visual > span:first-child { display: none; }
+  .summary-table .share-visual > span:last-child { width: auto; white-space: nowrap; }
+}
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: var(--space-3); }
+.history-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: start; }
+@media (min-width: 1100px) { .history-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); } }
+.history-grid > *, .today-grid > * { min-width: 0; }
+.range-inputs input { width: 64px; padding: var(--space-1); margin-inline: var(--space-1); color: var(--ink); background: var(--panel); border: 1px solid var(--line-strong); border-radius: var(--corner-sm); }
+.profit-heatmap { display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 4px; }
+.heat-cell { display: block; aspect-ratio: 1; border-radius: var(--corner-xs); }
+.event-day { outline: 2px solid var(--violet); outline-offset: 1px; }
+.heat-key { display: inline-block; width: 10px; height: 10px; border-radius: var(--corner-xs); }
+.event-link:hover, .mover-row:hover { background: var(--raised); }
+.flag-day { flex: 1; min-width: 0; height: 8px; border-radius: var(--corner-xs); }
+.sort-button { display: inline-flex; gap: var(--space-1); align-items: center; min-height: 32px; cursor: pointer; }
+.history-table tbody tr { cursor: pointer; }
+.history-table table { min-width: 640px; }
+.items-table table { min-width: 560px; }
+@media (max-width: 639px) {
+  .items-table table { min-width: 0; }
+  .items-table th, .items-table td { padding-inline: var(--space-1); }
+  .items-table .item-secondary { display: none; }
+  .items-table .type-label { overflow-wrap: anywhere; }
+  .items-table td:last-child > span { min-width: 0; }
+  .items-table td:last-child > span > span:first-child { display: none; }
+}
+
+@media (max-width: 639px) {
+  .history-table table { min-width: 0; width: 100%; }
+  .history-table th, .history-table td { padding-inline: var(--space-1); }
+  .history-table .history-secondary { display: none; }
+}
+
+/* In the base layer so utilities on the same element (chip borders, selected colours) still win. */
+@layer base {
+  .row-button { font: inherit; color: inherit; border: 0; background: none; padding: 0; display: inline-flex; align-items: center; gap: 8px; text-align: start; cursor: pointer; }
+  .row-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+}
+
+.day-items-chip { padding: var(--space-1) var(--space-3); }
+.day-items-table table { min-width: 640px; }

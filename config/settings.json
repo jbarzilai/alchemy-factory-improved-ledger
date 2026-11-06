@@ -1,0 +1,18 @@
+{
+  "_comment": "App behaviour; machine-specific paths belong in .env.",
+  "web": {
+    "port": 4317,
+    "host": "localhost",
+    "watchIntervalMs": 3000
+  },
+  "flags": {
+    "incomeFlags": true,
+    "purchaseFlags": true,
+    "windowDays": 3,
+    "dropRatio": 0.5,
+    "riseRatio": 2,
+    "moneyDropShare": 0.1,
+    "purchaseShopShare": 0.075,
+    "zeroRunDays": 3
+  }
+}

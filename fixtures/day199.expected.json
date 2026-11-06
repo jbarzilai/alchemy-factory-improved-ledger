@@ -1,0 +1,34 @@
+{
+  "_comment": "Transcribed from in-game ledger screenshots for display Day 199 (saveDay 198), save '1 Point Oh', SaveGame3.sav. Amounts are [coin, value] where coin is copper|silver.",
+  "displayDay": 199,
+  "saveDay": 198,
+  "profitCoef": 1.2,
+  "shopIncome": {
+    "VitalityPotion": [144, "copper", 95040], "Brick": [46, "copper", 6440], "Glass": [107, "copper", 16050],
+    "SteelGear": [82, "copper", 73800], "WoodPulley": [84, "copper", 7392], "Salt": [106, "copper", 21200],
+    "Nails": [144, "copper", 4608], "BronzeRivet": [70, "copper", 16800], "BlackPowder": [93, "copper", 122760],
+    "LargeWoodGear": [97, "copper", 970], "Soap": [156, "copper", 18720], "Linen": [47, "copper", 15510],
+    "CopperBearing": [51, "copper", 30600], "Bandage": [27, "copper", 18900], "WoodGear": [95, "copper", 1520],
+    "LinenRope": [123, "copper", 8856], "HealingPotion": [127, "copper", 21590], "GrowthPotion": [108, "copper", 264384],
+    "ManaPotion": [192, "copper", 238080], "Malachite": [37, "copper", 54316], "StrangeTide": [56, "copper", 161784],
+    "Turquoise": [29, "copper", 12093], "Mars": [6, "silver", 2688], "WhisperingFields": [64, "copper", 43008],
+    "Saturn": [8, "silver", 1920], "Mortar": [69, "copper", 6624], "Jupiter": [11, "silver", 528]
+  },
+  "orderIncome": {
+    "Catalyst2": [880, "silver", 3432], "GloomSpores": [3950, "silver", 1817], "Bandage": [2000, "silver", 600]
+  },
+  "questRewards": { "silver": 590, "copper": 5529 },
+  "purchasingCost": {
+    "GelatinousGridlock": [14004, "copper", 1400400], "RottenLog": [270, "copper", 540000],
+    "SageSeed": [5414, "copper", 1949040], "Limestone": [479, "copper", 287400], "CoalOre": [243, "copper", 1166400],
+    "RockSalt": [108, "silver", 972], "Pyrite": [58, "silver", 638], "Wood": [196, "copper", 39200],
+    "IronOre": [62, "copper", 74400], "CashRegister": [1, "copper", 3000]
+  },
+  "totals": {
+    "shopCopperEquiv": 6397045,
+    "orderCopperEquiv": 5849000,
+    "questCopperEquiv": 595529,
+    "purchasingCopperEquiv": 7069840,
+    "netCopperEquiv": 5771734
+  }
+}

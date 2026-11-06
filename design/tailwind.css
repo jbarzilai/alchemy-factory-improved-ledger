@@ -1,0 +1,72 @@
+/*
+ * Alchemy Ledger: Tailwind v4 entry for packages/web.
+ * Every value lives in tokens.css (generated from tokens.json). This file only maps those
+ * variables to Tailwind utilities, so a token change never needs an edit here.
+ * Load order in the app: tokens.css, then this file.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@source "./";
+
+@theme inline {
+  --spacing: var(--space-1);
+
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-violet: var(--violet);
+  --color-gain: var(--gain);
+  --color-gain-soft: var(--gain-soft);
+  --color-loss: var(--loss);
+  --color-loss-soft: var(--loss-soft);
+  --color-focus: var(--focus);
+
+  --color-sundries: var(--series-sundries);
+  --color-potion: var(--series-potion);
+  --color-beverage: var(--series-beverage);
+  --color-jewelry: var(--series-jewelry);
+  --color-relic: var(--series-relic);
+  --color-orders: var(--series-orders);
+  --color-quests: var(--series-quests);
+  --color-purchasing: var(--series-purchasing);
+
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-data);
+
+  --radius-xs: var(--corner-xs);
+  --radius-sm: var(--corner-sm);
+  --radius-md: var(--corner-md);
+  --radius-lg: var(--corner-lg);
+  --radius-full: var(--corner-pill);
+
+  --shadow-popover: var(--elevation-popover);
+  --shadow-dialog: var(--elevation-dialog);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+}

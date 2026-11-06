@@ -1,0 +1,31 @@
+{
+  "name": "af-ledger",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p packages/core && tsc -p packages/cli && tsc -p packages/web && tsc -p packages/web/tsconfig.client.json",
+    "build:native": "bash packages/core/native/build.sh",
+    "build": "node packages/cli/build.mjs",
+    "bootstrap": "npm run build && node packages/cli/dist/af-ledger.mjs bootstrap",
+    "refresh:game-data": "npm run build && node packages/cli/dist/af-ledger.mjs refresh-game-data && node packages/cli/dist/af-ledger.mjs refresh-icons",
+    "web": "node packages/web/scripts/start.mjs",
+    "tokens": "node design/build-tokens.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "esbuild": "0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "overrides": {
+    "glob": "14.0.3"
+  }
+}

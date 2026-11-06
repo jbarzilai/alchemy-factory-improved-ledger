@@ -1,0 +1,138 @@
+/* Generated from design/tokens.json by npm run tokens. Do not edit. */
+:root, [data-theme="dark"] {
+  --bg: #15131a;
+  --panel: #1f1c26;
+  --raised: #29252f;
+  --line: #37323f;
+  --line-strong: #7c738a;
+  --ink: #ece6f2;
+  --muted: #a198ad;
+  --accent: #f0b44c;
+  --on-accent: #1d1606;
+  --accent-ink: #f0b44c;
+  --accent-soft: rgba(240, 180, 76, 0.14);
+  --violet: #b590ff;
+  --gain: #6fd08c;
+  --gain-soft: rgba(111, 208, 140, 0.14);
+  --loss: #ff7a7a;
+  --loss-soft: rgba(255, 122, 122, 0.14);
+  --focus: #f0b44c;
+  --series-sundries: #c98500;
+  --series-potion: #9085e9;
+  --series-beverage: #199e70;
+  --series-jewelry: #d95926;
+  --series-relic: #3987e5;
+  --series-orders: #d55181;
+  --series-quests: #8a9a1c;
+  --series-purchasing: #8f86a0;
+  --elevation-popover: 0 12px 30px rgba(0, 0, 0, 0.35);
+  --elevation-dialog: 0 20px 60px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg: #f6f3ee;
+  --panel: #ffffff;
+  --raised: #f1ece4;
+  --line: #ddd4c7;
+  --line-strong: #8a7f74;
+  --ink: #231d2b;
+  --muted: #6b6176;
+  --accent: #e8a43a;
+  --on-accent: #231d2b;
+  --accent-ink: #8a5a08;
+  --accent-soft: rgba(183, 118, 12, 0.12);
+  --violet: #6a3dcc;
+  --gain: #16793a;
+  --gain-soft: rgba(22, 121, 58, 0.10);
+  --loss: #c0302f;
+  --loss-soft: rgba(192, 48, 47, 0.10);
+  --focus: #8a5a08;
+  --series-sundries: #eda100;
+  --series-potion: #6250d6;
+  --series-beverage: #1baf7a;
+  --series-jewelry: #eb6834;
+  --series-relic: #2a78d6;
+  --series-orders: #e87ba4;
+  --series-quests: #7f9400;
+  --series-purchasing: #8a7f95;
+  --elevation-popover: 0 12px 30px rgba(60, 40, 20, 0.14);
+  --elevation-dialog: 0 20px 60px rgba(60, 40, 20, 0.22);
+  color-scheme: light;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --corner-xs: 4px;
+  --corner-sm: 6px;
+  --corner-md: 8px;
+  --corner-lg: 10px;
+  --corner-pill: 999px;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+.type-display {
+  font-family: var(--font-ui);
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.type-kpi {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  line-height: 28px;
+  font-weight: 600;
+}
+.type-title {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.type-heading {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.type-body {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+.type-small {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+}
+.type-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+.type-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.type-micro {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 500;
+}
+.type-code {
+  font-family: var(--font-data);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}

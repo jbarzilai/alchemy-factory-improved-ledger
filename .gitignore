@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.cache/
+*.tsbuildinfo
+packages/core/native/bin/*
+# kdec.exe is committed: a Windows clone has no cross-compiler to run build:native
+!packages/core/native/bin/win32-x64/
+# Never commit game saves (local fixture copies included)
+*.sav
+# ...except the golden-test fixture, which is committed (checked: no personal or account data, 2026-10-27)
+!fixtures/saves/SaveGame3.sav
+exports/
+.env
+config/flags.local.json
+config/flags.local.json.tmp
+.claude/

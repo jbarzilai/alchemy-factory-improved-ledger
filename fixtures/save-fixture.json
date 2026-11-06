@@ -1,0 +1,5 @@
+{
+  "_comment": "Save used by the golden tests (display Days 100 and 199), committed at fixtures/saves/. Never modify it; the SHA-256 guards against accidental changes.",
+  "file": "SaveGame3.sav",
+  "sha256": "05abde966ce1c108a7d457c49e5c6e81b5bc78ad23c08dae2ace0a1f027bff40"
+}
