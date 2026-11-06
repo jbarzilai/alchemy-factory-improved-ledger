@@ -5,8 +5,14 @@ import path from 'node:path';
 import { expect, it } from 'vitest';
 import { REPO } from './helpers/fixture';
 
-const CITES_PRIVATE = /\b(?:PLAN|CODEX-MEMORY|REVIEW-FLAGS|mod-research)\.md\b|docs\/superpowers\//;
+// PLAN needs its .md: bare "plan" is ordinary prose.
+const CITES_PRIVATE = /\bPLAN\.md\b|\b(?:CODEX-MEMORY|REVIEW-FLAGS|mod-research)\b|docs\/superpowers\b/;
 const SELF = 'packages/core/test/public-files.test.ts';
+
+it('the pattern catches the private docs with or without .md', () => {
+  const cites = ['see CODEX-MEMORY', 'the REVIEW-FLAGS list', 'the mod-research notes', '`docs/superpowers`', 'docs/PLAN.md'];
+  expect(cites.filter(text => !CITES_PRIVATE.test(text))).toEqual([]);
+});
 
 it('no public file cites the private docs', () => {
   const files = execFileSync('git', ['ls-files'], { cwd: REPO, encoding: 'utf8' }).split('\n').filter(Boolean);
