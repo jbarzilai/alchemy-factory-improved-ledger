@@ -1,4 +1,4 @@
-// Unreal 5.5 tagged-property parser ("complete type name" tags). Ported from the original Python prototype; see SAVE_FORMAT.md §3.
+// Unreal 5.5 tagged-property parser ("complete type name" tags); see SAVE_FORMAT.md §3.
 // Every value must consume exactly the size its tag declares, otherwise PropertyError.
 import { ByteReader } from './reader';
 import { PropertyError } from './errors';

@@ -55,7 +55,7 @@ describe('questPayout', () => {
   });
 
   // Requirements/Double factors read from the documented SaveGame0.sav SpawnedQuests;
-  // UI rewards from SAVE_FORMAT.md / the Task 2 handoff. No live saves needed by these tests.
+  // UI rewards from SAVE_FORMAT.md. No live saves needed by these tests.
   it.each<{ id: number; factor: number; items: [string, number][]; expected: number }>([
     { id: 356, factor: 1.600000023841858, expected: 1_022_612,
       items: [['GrowthPotion', 60], ['Saturn', 2], ['PerfumedSoap', 32], ['IronIngot', 120], ['PocketWatch', 20]] },

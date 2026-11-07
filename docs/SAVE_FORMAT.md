@@ -212,12 +212,12 @@ Shop Profit 120%, Sundries/Potion 180%, Beverage/Relic 140%, Jewelry 124%, Quest
 - Display quirk: every amount shown splits as copper = total mod 5000, with the rest in silver/gold
   (589,133 → 5g 85s 4,133c; 195,538 → 195s 538c).
 - The board shows rewards as unnormalised IntVectors (450s 3,471c; 10g 20s 2,612c).
-- Quest Rewards bonus = 1 + Customer Management skills (QuestSkill1–4 = +6%, +6%, +8%, +8%, per the user). The save lists
-  unlocked skills by name in `UnlockedSkillPointsList` (QuestSkill1–4 present), grouped by kind, not in unlock order, and
-  with no dates. `DailyIngredients` stores only `ProfitCoef` per day. So past days' quest bonus is **not recoverable**;
-  Customer Management can also be **respecced** (levels removed and re-added, even within a day; the user did a full
-  respec within the last 100 days). So the bonus at the moment of a past submission is unknowable from any single
-  save. The save only shows the level at save time.
+- Quest Rewards bonus = 1 + Customer Management skills (QuestSkill1–4 = +6%, +6%, +8%, +8%, as shown in the in-game
+  skill tree). The save lists unlocked skills by name in `UnlockedSkillPointsList` (QuestSkill1–4 present), grouped by
+  kind, not in unlock order, and with no dates. `DailyIngredients` stores only `ProfitCoef` per day. So past days'
+  quest bonus is **not recoverable**; Customer Management can also be **respecced** (levels removed and re-added, even
+  within a day). So the bonus at the moment of a past submission is unknowable from any single save. The save only
+  shows the level at save time.
 - PocketWatch's only sale (Day 133: 29 for 2000c each) is *below* the 2480 fitted quest price. Bonuses can only raise a shop price,
   so a jewelry-bonus change can't explain it. Unresolved (price rebalance? special sale?).
 - Main quests: Main7 stores `Gold = (6,0,0)` but the board shows 8 gold. Unconfirmed: whether 6 × 1.28 = 7.68 is

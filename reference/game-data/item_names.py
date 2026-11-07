@@ -1,6 +1,6 @@
 # Item ID -> English name, from the game install (read-only). Run from this directory after extracting
-# DT_Enemies with: node extract.mjs <AlchemyFactory-Windows.utoc> DataTables/DT_Enemies.uasset dt/DT_Enemies.uasset
-# Usage: python3 item_names.py dt/DT_Enemies.uasset > item-names.json
+# DT_Enemies with: mkdir -p ../../.cache/dt && node extract.mjs <AlchemyFactory-Windows.utoc> DataTables/DT_Enemies.uasset ../../.cache/dt/DT_Enemies.uasset
+# Usage: python3 -B item_names.py ../../.cache/dt/DT_Enemies.uasset > ../../.cache/item-names.json (see README.md)
 import json, re, struct, sys
 import pak, zen
 
