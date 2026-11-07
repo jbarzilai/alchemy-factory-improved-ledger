@@ -7,6 +7,9 @@
   anything inside the saves folder (`%LOCALAPPDATA%\AlchemyFactory\Saved\SaveGames\...`, seen from
   WSL as `/mnt/c/Users/<user>/AppData/Local/AlchemyFactory/Saved/SaveGames/...`).
   Work on in-memory buffers; caches go in this repo's `.cache/`.
+- **Cap memory for one-off scripts over saves or game files**, e.g. `(ulimit -v 4000000; python3 -I script.py ...)`.
+  A misread length field can make a parser allocate without bound, and an out-of-memory kill in WSL can end every
+  terminal session. `timeout` limits time, not memory.
 - **Linux/WSL first (decision 2026-10-25).** Repo and tools run in WSL with the Linux `kdec`, reading saves
   through `/mnt/c/...`. Windows packaging (`package:win`/`test:win`) is not built yet.
   Keep `kdec.exe` building and its byte-identical cross-check passing meanwhile.
