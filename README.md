@@ -6,76 +6,26 @@ with comparisons, category breakdowns and item movers. Day numbers match the gam
 **Saves are read-only input.** af-ledger never modifies a save or writes into the game's
 saves folder. Parsing happens in memory; local caches and test copies live in the repository's `.cache/`.
 
-## Setup
+## Quick start (Windows)
 
-Run in Linux/WSL with Node.js ≥ 22, npm and `build-essential`. If `g++-mingw-w64-x86-64` is
-installed, `npm run build:native` also builds the Windows `kdec.exe`; without it, only the Linux
-`kdec` is built. Development and the CLI use the Linux `kdec`; Windows packaging is deferred.
+1. Install [Node.js](https://nodejs.org/) 22 or newer.
+2. Download or clone this repository, then open PowerShell in its folder.
+3. Run:
 
-A clone on Windows can run the CLI and `npm run web` in PowerShell with Node.js ≥ 22. `kdec.exe` is committed, so
-skip `npm run build:native` there; the other steps are the same.
+   ```powershell
+   npm ci
+   npm run web
+   ```
 
-From the repository root:
+4. Open <http://localhost:4317>. The page uses your newest save, autosaves included, and updates
+   by itself when the game saves.
 
-```sh
-npm ci
-npm run build:native
-npm run build
-npm run bootstrap
-npm link -w @af-ledger/cli
-af-ledger doctor
-```
+Ctrl-C stops the server. Your saves are found at `%LOCALAPPDATA%\AlchemyFactory\Saved\SaveGames`;
+if yours are elsewhere, run `npm run bootstrap` or see [Configuration](#configuration).
 
-Bootstrap finds the saves folder and the Steam game install and writes them to `.env` in the
-repository (git-ignored). If `.env` already exists, bootstrap only shows what it would write; run
-`af-ledger bootstrap --force` (or `npm run bootstrap -- --force`) to replace the detected paths and
-keep every other setting. If detection fails, fill in the paths yourself, using `.env.example` as a
-guide. `AF_SAVE_DIR` is required on Linux/WSL; native Windows can use
-`%LOCALAPPDATA%\AlchemyFactory\Saved\SaveGames`.
+The site is meant for this PC only: keep `web.host` at `localhost` in `config/settings.json`.
+Opening it from another device on your network is not supported.
 
-The CLI, the website and the helper scripts read the repository's `.env` from any working folder.
-Each setting comes from the first of these that has it:
-
-1. the process environment (an empty value counts as unset);
-2. the `.env` file, or the file named by `AF_ENV_FILE` (`AF_ENV_FILE=none` reads no file);
-3. the built-in default, where there is one.
-
-- `AF_SAVE_DIR`: saves root containing the slots.
-- `AF_GAME_DIR`: Alchemy Factory install folder, only needed by refresh-game-data and refresh-icons.
-- `AF_EXPORT_DIR`: PNG output directory (default: repository `exports/`).
-- `AF_KDEC`: decoder executable (default: the platform build).
-
-Use single quotes around paths to preserve Windows backslashes. `--save <file|folder>` takes
-precedence over `AF_SAVE_DIR`.
-
-The golden tests use the author's save `fixtures/saves/SaveGame3.sav` (committed; SHA-256 pinned in
-`fixtures/save-fixture.json`) and check it against numbers transcribed from the in-game ledger.
-Run `npm test` and `npm run typecheck`. Inside WSL, `npm test` also checks that the committed
-`kdec.exe` decodes exactly like the Linux `kdec`; `AF_SKIP_WIN=1` skips that check. With mingw
-installed, it also checks that `kdec.exe` equals a fresh build of the source.
-
-## Settings
-
-`.env` holds paths on this machine (saves, game install, exports and decoder).
-`config/settings.json` controls app behaviour: web host, port and save-watch interval,
-plus flag thresholds. Missing settings use the defaults; unknown or invalid settings report an error.
-
-The gear on Today's Flags panel opens **Customize flags**, where you can change the
-thresholds and switch Shop Income and Order Income or Purchasing Cost flags off. Save
-writes `config/flags.local.json`, holding only changed values (group switches included)
-and overriding `config/settings.json`. Deleting that file restores the defaults.
-
-## Website
-
-Run `npm run web` from the repository root, then open `http://localhost:4317` in the
-Windows browser when using WSL. The server reads the same `.env` as the CLI and selects
-the newest `.sav`, including autosaves. Override the save with `npm run web -- --save <file|folder>`.
-Host and port are set only in `config/settings.json`. The site is meant for this PC only: keep
-`web.host` at `localhost`. Opening it from another device on your network is not supported.
-
-`npm run web -- --prod` builds the client and serves it statically on the same port.
-Ctrl-C closes the server. Bundles are written to the git-ignored `packages/web/dist/`.
-Open pages update by themselves when the game saves.
 ### Pages
 
 Today shows a completed day's money sum, Quest Rewards and flags. History compares
@@ -84,6 +34,63 @@ range, with a whole-save Profit heatmap and events. Item economics shows Shop
 Income by category and item, sortable sales, rising and falling income per day,
 and each item's daily sales and flags.
 
+### Settings
+
+`config/settings.json` controls app behaviour: web host, port and save-watch interval,
+plus flag thresholds. Missing settings use the defaults; unknown or invalid settings report an error.
+
+The gear on Today's Flags panel opens **Customize flags**, where you can change the
+thresholds and switch Shop Income and Order Income or Purchasing Cost flags off. Save
+writes `config/flags.local.json`, holding only changed values (group switches included)
+and overriding `config/settings.json`. Deleting that file restores the defaults.
+
+## Configuration
+
+Paths on this machine live in `.env` in the repository (git-ignored). `npm run bootstrap`
+finds the saves folder and the Steam game install and writes them there. If `.env` already
+exists, bootstrap only shows what it would write; run `npm run bootstrap -- --force` to replace
+the detected paths and keep every other setting. If detection fails, fill in the paths yourself,
+using `.env.example` as a guide.
+
+The CLI, the website and the helper scripts read the repository's `.env` from any working folder.
+Each setting comes from the first of these that has it:
+
+1. the process environment (an empty value counts as unset);
+2. the `.env` file, or the file named by `AF_ENV_FILE` (`AF_ENV_FILE=none` reads no file);
+3. the built-in default, where there is one.
+
+- `AF_SAVE_DIR`: saves root containing the slots. Optional on native Windows (defaults to
+  `%LOCALAPPDATA%\AlchemyFactory\Saved\SaveGames`), required on Linux/WSL.
+- `AF_GAME_DIR`: Alchemy Factory install folder, only needed by refresh-game-data and refresh-icons.
+- `AF_EXPORT_DIR`: PNG output directory (default: repository `exports/`).
+- `AF_KDEC`: decoder executable (default: the platform build).
+
+Use single quotes around paths to preserve Windows backslashes. `--save <file|folder>` takes
+precedence over `AF_SAVE_DIR`.
+
+## Website options
+
+`npm run web -- --save <file|folder>` overrides the save. `npm run web -- --prod` builds the
+client and serves it statically on the same port (bundles go to the git-ignored `packages/web/dist/`).
+Host and port are set only in `config/settings.json`.
+
+## CLI setup
+
+The CLI is optional; the website does not need it. It needs Node.js 22 or newer. On Windows
+(PowerShell) or Linux/WSL, from the repository root:
+
+```sh
+npm ci
+npm run build
+npm run bootstrap
+npm link -w @af-ledger/cli
+af-ledger doctor
+```
+
+On Linux/WSL, also run `npm run build:native` first (needs `build-essential`) to build the
+Linux decoder `kdec`, and set `AF_SAVE_DIR` (bootstrap does this when it finds the saves
+through `/mnt/c/...`). When using WSL, open the website at `http://localhost:4317` in the
+Windows browser.
 
 ## CLI usage
 
@@ -181,6 +188,10 @@ times differ from the extraction stamp. Item names and quest skill bonuses remai
 `--save <file|folder>` overrides that environment variable. `AF_KDEC` overrides the decoder's
 executable path; an empty value uses the bundled platform default. Colour uses TTY detection
 and is disabled by a non-empty `NO_COLOR`.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup and tests.
 
 ## License
 

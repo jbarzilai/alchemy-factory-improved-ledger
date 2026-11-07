@@ -28,7 +28,8 @@
   spawn Node, use WSL interop or listen on a socket skip themselves (`inCodexSandbox` in `packages/core/test/helpers/sandbox.ts`).
   Golden tests run with `kdec` in WSL only until a Windows test run (`test:win`) exists.
 - Quest rewards are not stored in saves; Day 199's golden net excludes them (Day 100 had none).
-- See [README.md](README.md) for CLI setup and usage.
+- See [README.md](README.md) for the Windows quick start, configuration and CLI usage, and
+  [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup and tests.
 - **Maintainer docs (private).** The maintainer keeps plans and agent notes in a separate private repo, checked out next
   to this one as `alchemy-factory-improved-ledger-develop`. If that folder exists, read its `AGENTS.md` before starting.
   From a git worktree, it is at
