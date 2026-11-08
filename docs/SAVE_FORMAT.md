@@ -121,10 +121,10 @@ IngredientRecordData {
   RestockCount: Int           // Purchasing Cost screen: count (no price stored)
   SellCount: Int              // Shop Income screen: count
   SellProfit: IntVector       // Shop Income screen: amount
-  ProduceCount: Int
+  ProduceCount: Int           // items made by machines; on a coin: Coin Minting (see "Coins")
   DispatchedCount: Int        // Order Income screen: count
   DispatchProfit: IntVector   // Order Income screen: amount
-  ConsumeCount: Int
+  ConsumeCount: Int           // set only on coins: Coin Smelting (see "Coins")
 }
 ```
 `IngredientCounts` (current day) is a flat `Array<IngredientRecordData>` with the same shape.
@@ -138,6 +138,49 @@ in-game "Shop Profit" bonus (120%).
 Copper-equivalent = `x*100000 + y*1000 + z`.
 Items priced in silver in-game (Mars, Saturn, Jupiter; all dispatch rewards seen so far) store
 their value in `y`; copper items use `z`. `x` only seen in quest awards (e.g. Main7: `(6,0,0)`).
+
+### Coins: minting and smelting (verified 2026-11-07)
+Coins are items (`CopperCoin`, `SilverCoin`, `GoldCoin`), so making and melting them is in the daily records. A coin is
+worth its face value: copper 1c, silver 1,000c, gold 100,000c. Recipes and licenses below are from the game's
+`DT_EnemyCrafting` and `DT_License` tables, as published in
+[TobyTicehurst/alchemy-factory-data](https://github.com/TobyTicehurst/alchemy-factory-data).
+- **Coin Minting = `ProduceCount` on a coin.** The Coin Minter runs the "Process" recipes: 1 `CopperIngot` → 300
+  `CopperCoin` (12 s), 1 `SilverIngot` → 5 `SilverCoin` (16 s), 1 `GoldIngot` → 1 `GoldCoin` (40 s). Verified for
+  copper: in the "1 Point Oh" save on in-progress UI Day 237, `CopperCoin` has `ProduceCount` 53,100 = 177 × 300. Silver
+  and gold are unverified (no save mints them).
+- **Coin Smelting = `ConsumeCount` on a coin.** Furnaces have alternate "Fire" recipes: 400 `CopperCoin` → 1
+  `CopperIngot` (12 s), 6 `SilverCoin` → 1 `SilverIngot` (16 s), 3 `GoldCoin` → 2 `GoldIngot` (40 s). The ingots count
+  in the ingot's `ProduceCount`. Copper ingots are otherwise made 1:1 from `CopperPowder2`, and on steady days
+  `CopperIngot` minus `CopperPowder2` `ProduceCount` equals `CopperCoin` `ConsumeCount` ÷ 400 to within a few ingots
+  (UI Days 164–178 and 219–228: exact on 13 of 25 days, at most 3 off on all but Day 176, which is 13 off).
+- **No other item has a `ConsumeCount`.** In 11 saves of "1 Point Oh" (ledger UI Days 1–237) only `CopperCoin` has one:
+  UI Days 137–142, 147–179 and 219–237, 84,000 or 96,000 a day when steady and always a multiple of 400. Ingredients
+  that machines use are not counted, including the ingots a Coin Minter takes.
+- **The game's Daily Summary shows both:** "Coin Minting: {0}" and "Coin Smelting: {0}" (locres keys
+  `UI_DailySummary_MintCoin` and `UI_DailySummary_CoinConsume`; `WBP_DailySummaryWidget` calls `GetDailyCoinData`, which
+  returns `coinProduce`). Unverified: whether `{0}` is a coin count or a value, and whether the game's Profit includes
+  either line. Neither golden day (100, 199) has any coin activity.
+- **Licenses:** `MintingLicense1` (Copper Coin Mint License: produce 200 `CopperIngot`, costs 100s) unlocks `CopperCoin`
+  and `CopperIngot_Alt`. `MintingLicense2` (Silver: produce 200,000 `CopperCoin`, 10g) unlocks `SilverCoin` and
+  `SilverIngot_Alt`. `MintingLicense3` (Gold: produce 1,000 `SilverCoin`, 120g) unlocks `GoldCoin` and
+  `GoldIngot_Alt`. The fixture has `MintingLicense1` only.
+
+### Coin objects in the world (partial, 2026-11-07)
+Counting every coin in a save partly works. Nothing in the app uses it (the business balance is out of scope, §1.1).
+- A coin stack is an item slot: `ItemName` (NameProperty, the coin's name) followed by `ItemStack` (IntProperty, the
+  count).
+- **Player inventory:** block 0's `Slots` (`BeltTDInventorySlotData`). Its coin stacks match the header wallet fields
+  exactly in three Day 199 saves.
+- **Items on belts or in the world:** `BeltTDItemEntity` entries (Pos, DeltaTime, Slot, Phantom), in block 4 of the
+  Day 199 saves. About 7,300 silver-coin entries per save.
+- **Building inventories:** one `Slots` array per building, in blocks 6–16 of the Day 199 saves. For example, the
+  `Portal_Bank` building (the coin-exchanging BankPortal) holds about 3,360 gold coins. A building's name follows its
+  inventory, so tying a slot to its building is unreliable.
+- **Not found:** the coins held by an Automatic Cashier or the Purchasing Portal. `CachedCurrency` appears only in
+  class tables.
+- **Does not reconcile yet.** Between saves taken 10 minutes apart, the coin total rose by 1.34M and 5.20M
+  copper-equivalent while shop income was 0.88M and 3.68M. Orders, quests, purchases, smelting and the missing
+  containers are not modelled.
 
 ### Quests (QuestSystem.CompletedQuests / SpawnedQuests)
 Verified directly in the fixture's `CompletedQuests`: `Array<ProcessQuest>` (274 entries), with
