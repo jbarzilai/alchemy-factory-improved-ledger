@@ -33,7 +33,9 @@
   `AF_SKIP_WIN=1 npm test` skips the kdec.exe interop cross-check. Inside the Codex sandbox, tests that
   spawn Node, use WSL interop or listen on a socket skip themselves (`inCodexSandbox` in `packages/core/test/helpers/sandbox.ts`).
   Golden tests run with `kdec` in WSL only until a Windows test run (`test:win`) exists.
-- Quest rewards are not stored in saves; Day 199's golden Daily Summary Profit excludes them (Day 100 had none).
+- Quest rewards are not stored in saves. The golden Daily Summary Profit includes them as the game shows them; the
+  tests check it with recomputed quest rewards, and without quest pricing against the golden figure minus its quests
+  (Day 100 had none).
 - See [README.md](README.md) for the Windows quick start, configuration and CLI usage, and
   [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup and tests.
 - **Maintainer docs (private).** The maintainer keeps plans and agent notes in a separate private repo, checked out next

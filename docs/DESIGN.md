@@ -15,7 +15,7 @@ The look of the Alchemy Factory ledger website: a warm, dense workshop interface
 
 ## Content fundamentals
 
-- **Use the game's words.** Earnings, Expenses, Profit, Shop income, Order income, Quest rewards, Purchasing: the same terms as the in-game Daily Summary. Shop categories are Sundries, Potion, Beverage, Jewelry and Relic. The exception is **Coins Minted** / **Coins Melted**, instead of the game's "Coin Minting" / "Coin Smelting". Text describing the save or quoting the game keeps the game's wording.
+- **Use the game's words.** Earnings, Expenses, Profit, Shop income, Order income, Quest rewards, Purchasing: the same terms as the in-game Daily Summary. Profit is the game's Ledger tab figure (coins included); the Daily Summary's own Profit is labelled **Daily Summary Profit**. Shop categories are Sundries, Potion, Beverage, Jewelry and Relic. The exception is **Coins Minted** / **Coins Melted**, instead of the game's "Coin Minting" / "Coin Smelting". Text describing the save or quoting the game keeps the game's wording.
 - **Use in-game names, never internal IDs.** "Transformation Potion", not `ManaPotion`; "Fertile Catalyst", not `Catalyst2`. Names come from `item-names.json`. Show an ID only as data, in `type-code`.
 - **Days are the game's days.** Always the 1-based day the game shows ("Day 199"). Compare with the previous day by naming it: "vs Day 198", never "yesterday".
 - **Money has one unit per column.** Never mix gold, silver and copper in one column or one row of tiles. Mixed mode picks one unit from the largest value; gold and silver show two decimals (`57.72g`), copper shows whole numbers (`4,608c`).
@@ -62,7 +62,9 @@ pair (Beverage / Jewelry: 16.3 in Night shift, 14.7 in Parchment).
 In normal vision, each new colour differs from every other series by at least 22. Contrast on
 `panel` is 6.6:1 / 3.2:1 for Coins Minted and 8.2:1 / 6.8:1 for Coins Melted (Night shift / Parchment).
 Non-neighbours can remain close under simulation, including Coins Minted near Relic and Beverage
-under protanopia, so legends and tables remain required. Series colours stay on marks, not text.
+under tritanopia. A zero-height series lets non-neighbours touch: on a coin day without Quest Rewards,
+Coins Minted sits on Order Income, which scores 2.9 under protanopia in Parchment (20.4 in Night shift).
+Legends and tables remain required. Series colours stay on marks, not text.
 
 ### Type
 

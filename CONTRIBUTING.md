@@ -31,8 +31,8 @@ Run `npm test` and `npm run typecheck`.
 The golden tests use the author's save `fixtures/saves/SaveGame3.sav` (committed; SHA-256 pinned in
 `fixtures/save-fixture.json`; never modify it) and check it against numbers transcribed from the
 in-game Daily Summary. Neither golden day (100, 199) has coin activity, so Profit equals
-Daily Summary Profit. Day 199's golden Daily Summary Profit excludes quest rewards, which are
-reconstructed separately (Day 100 had none).
+Daily Summary Profit. Quest rewards are not stored in saves: the golden Daily Summary Profit includes them,
+and the tests check it with recomputed quest rewards (Day 100 had none).
 
 There are two committed saves. The second, `fixtures/saves/Sand-SaveGame1.sav`, is pinned in
 `fixtures/save-fixture-sand.json` and covers minting all three coins on UI Day 24 in one core test
