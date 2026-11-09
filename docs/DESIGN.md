@@ -15,7 +15,7 @@ The look of the Alchemy Factory ledger website: a warm, dense workshop interface
 
 ## Content fundamentals
 
-- **Use the game's words.** Earnings, Expenses, Profit, Shop income, Order income, Quest rewards, Purchasing: the same terms as the in-game Daily Summary. Shop categories are Sundries, Potion, Beverage, Jewelry and Relic.
+- **Use the game's words.** Earnings, Expenses, Profit, Shop income, Order income, Quest rewards, Purchasing: the same terms as the in-game Daily Summary. Shop categories are Sundries, Potion, Beverage, Jewelry and Relic. The exception is **Coins Minted** / **Coins Melted**, instead of the game's "Coin Minting" / "Coin Smelting". Text describing the save or quoting the game keeps the game's wording.
 - **Use in-game names, never internal IDs.** "Transformation Potion", not `ManaPotion`; "Fertile Catalyst", not `Catalyst2`. Names come from `item-names.json`. Show an ID only as data, in `type-code`.
 - **Days are the game's days.** Always the 1-based day the game shows ("Day 199"). Compare with the previous day by naming it: "vs Day 198", never "yesterday".
 - **Money has one unit per column.** Never mix gold, silver and copper in one column or one row of tiles. Mixed mode picks one unit from the largest value; gold and silver show two decimals (`57.72g`), copper shows whole numbers (`4,608c`).
@@ -36,11 +36,33 @@ The look of the Alchemy Factory ledger website: a warm, dense workshop interface
 
 ### Charts
 
-- **Colour follows the entity.** Each income source has a fixed series token: `series-sundries`, `series-potion`, `series-beverage`, `series-jewelry`, `series-relic`, `series-orders`, `series-quests`. `series-purchasing` is a neutral, drawn below the baseline as negative bars. Filtering a chart never repaints the series that remain.
-- Stack in the token order above (Sundries first, Quests last). That order was validated for colour-blind separation between neighbours in both themes; do not reorder stacks by size.
+- **Colour follows the entity.** Each income source has a fixed series token: `series-sundries`, `series-potion`, `series-beverage`, `series-jewelry`, `series-relic`, `series-orders`, `series-quests`, `series-minted`. `series-purchasing` and `series-melted` are neutrals, drawn below the baseline as negative bars. Filtering a chart never repaints the series that remain.
+- Stack in the token order above (Sundries first, Coins Minted after Quest Rewards). Below the baseline, Coins Melted follows Purchasing Cost. That order was validated for colour-blind separation between neighbours in both themes; do not reorder stacks by size.
 - The series colours are for marks only. Labels, values and legends stay in `ink` and `muted`.
 - Every chart with two or more series has a `SeriesLegend`, and every chart has the same numbers in a table nearby. In Parchment, Sundries, Beverage and Orders sit below 3:1 on `panel`, so the legend and table are required, not optional.
 - One y-axis per chart. Thin marks, a faint `line` grid, axis text in `type-micro` `muted`.
+
+Coin series colours:
+
+| Token | Night shift | Parchment | Place |
+| --- | --- | --- | --- |
+| `series-minted` | `#2bb3c0` (teal) | `#1a9fb0` | After Quest Rewards, above the baseline |
+| `series-melted` | `#c2b49c` (warm stone grey) | `#5f5a52` | After Purchasing Cost, below the baseline |
+
+Colour check (2026-11-08): simulate protanopia, deuteranopia and tritanopia with Machado 2009
+matrices at full severity, then take the worst CIEDE2000 difference across those simulations and
+normal vision. Both new neighbour pairs pass 15, about the existing palette's weakest neighbour
+pair (Beverage / Jewelry: 16.3 in Night shift, 14.7 in Parchment).
+
+| Pair | Night shift | Parchment |
+| --- | --- | --- |
+| Quest Rewards / Coins Minted | 25.3 | 22.0 |
+| Purchasing Cost / Coins Melted | 16.0 | 16.3 |
+
+In normal vision, each new colour differs from every other series by at least 22. Contrast on
+`panel` is 6.6:1 / 3.2:1 for Coins Minted and 8.2:1 / 6.8:1 for Coins Melted (Night shift / Parchment).
+Non-neighbours can remain close under simulation, including Coins Minted near Relic and Beverage
+under protanopia, so legends and tables remain required. Series colours stay on marks, not text.
 
 ### Type
 

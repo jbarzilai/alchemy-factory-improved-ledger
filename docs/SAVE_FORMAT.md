@@ -139,31 +139,42 @@ Copper-equivalent = `x*100000 + y*1000 + z`.
 Items priced in silver in-game (Mars, Saturn, Jupiter; all dispatch rewards seen so far) store
 their value in `y`; copper items use `z`. `x` only seen in quest awards (e.g. Main7: `(6,0,0)`).
 
-### Coins: minting and smelting (verified 2026-11-07)
+### Coins: minting and smelting (verified 2026-11-08)
 Coins are items (`CopperCoin`, `SilverCoin`, `GoldCoin`), so making and melting them is in the daily records. A coin is
 worth its face value: copper 1c, silver 1,000c, gold 100,000c. Recipes and licenses below are from the game's
 `DT_EnemyCrafting` and `DT_License` tables, as published in
 [TobyTicehurst/alchemy-factory-data](https://github.com/TobyTicehurst/alchemy-factory-data).
 - **Coin Minting = `ProduceCount` on a coin.** The Coin Minter runs the "Process" recipes: 1 `CopperIngot` → 300
   `CopperCoin` (12 s), 1 `SilverIngot` → 5 `SilverCoin` (16 s), 1 `GoldIngot` → 1 `GoldCoin` (40 s). Verified for
-  copper: in the "1 Point Oh" save on in-progress UI Day 237, `CopperCoin` has `ProduceCount` 53,100 = 177 × 300. Silver
-  and gold are unverified (no save mints them).
+  copper: in the "1 Point Oh" save on in-progress UI Day 237, `CopperCoin` has `ProduceCount` 53,100 = 177 × 300.
+  All three are verified in the Sandbox save "Sand", UI Day 24: `CopperCoin` 66,000 = 220 × 300,
+  `SilverCoin` 1,565 = 313 × 5, `GoldCoin` 120 = 120 × 1, worth 13,631,000c in total.
+  A processors-only test (everything else destroyed) raised the counts in whole mint batches.
 - **Coin Smelting = `ConsumeCount` on a coin.** Furnaces have alternate "Fire" recipes: 400 `CopperCoin` → 1
   `CopperIngot` (12 s), 6 `SilverCoin` → 1 `SilverIngot` (16 s), 3 `GoldCoin` → 2 `GoldIngot` (40 s). The ingots count
   in the ingot's `ProduceCount`. Copper ingots are otherwise made 1:1 from `CopperPowder2`, and on steady days
   `CopperIngot` minus `CopperPowder2` `ProduceCount` equals `CopperCoin` `ConsumeCount` ÷ 400 to within a few ingots
   (UI Days 164–178 and 219–228: exact on 13 of 25 days, at most 3 off on all but Day 176, which is 13 off).
+  Silver and gold smelting remain unverified in saves.
 - **No other item has a `ConsumeCount`.** In 11 saves of "1 Point Oh" (ledger UI Days 1–237) only `CopperCoin` has one:
   UI Days 137–142, 147–179 and 219–237, 84,000 or 96,000 a day when steady and always a multiple of 400. Ingredients
   that machines use are not counted, including the ingots a Coin Minter takes.
-- **The game's Daily Summary shows both:** "Coin Minting: {0}" and "Coin Smelting: {0}" (locres keys
+- **The game's Daily Summary has strings for both:** "Coin Minting: {0}" and "Coin Smelting: {0}" (locres keys
   `UI_DailySummary_MintCoin` and `UI_DailySummary_CoinConsume`; `WBP_DailySummaryWidget` calls `GetDailyCoinData`, which
-  returns `coinProduce`). Unverified: whether `{0}` is a coin count or a value, and whether the game's Profit includes
-  either line. Neither golden day (100, 199) has any coin activity.
+  returns `coinProduce`). On Sand UI Day 24, the Daily Summary showed no coin line despite minting activity.
+  Whether `{0}` is a coin count or a value remains unverified.
+- **Profit = Daily Summary Profit + Coins Minted − Coins Melted at face value, as in the game's Ledger tab.**
+  Sand UI Day 24: −73,000c + 13,631,000c = 13,558,000c on the day tile. "1 Point Oh" UI Day 228:
+  7,974,445c − 96,000c = 7,878,445c, an exact match with no quests. On UI Day 229, af-ledger computes
+  Daily Summary Profit 13,731,587c (not read in game), including three quests, then subtracts 96,000c
+  melted to give 13,635,587c; the tile shows 13,635,594c. The 7c difference comes from reconstructed
+  quest-reward rounding, not coins. Neither golden day (100, 199) has any coin activity.
+- **Bank portal exchange remains unverified:** whether exchanging coins writes `ProduceCount` or `ConsumeCount`
+  on coins has not been tested.
 - **Licenses:** `MintingLicense1` (Copper Coin Mint License: produce 200 `CopperIngot`, costs 100s) unlocks `CopperCoin`
   and `CopperIngot_Alt`. `MintingLicense2` (Silver: produce 200,000 `CopperCoin`, 10g) unlocks `SilverCoin` and
   `SilverIngot_Alt`. `MintingLicense3` (Gold: produce 1,000 `SilverCoin`, 120g) unlocks `GoldCoin` and
-  `GoldIngot_Alt`. The fixture has `MintingLicense1` only.
+  `GoldIngot_Alt`. The "1 Point Oh" fixture has `MintingLicense1` only.
 
 ### Coin objects in the world (partial, 2026-11-07)
 Counting every coin in a save partly works. Nothing in the app uses it (the business balance is out of scope, §1.1).
