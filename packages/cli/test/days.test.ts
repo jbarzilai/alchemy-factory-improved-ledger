@@ -28,8 +28,7 @@ async function invoke(args: string[]) {
   return { code, out: c.out(), err: c.err() };
 }
 
-type Row = DaysRow;
-function json(out: string): Row[] {
+function json(out: string): DaysRow[] {
   expect(out.trim().split('\n')).toHaveLength(1);
   const rows = JSON.parse(out);
   expect(Array.isArray(rows)).toBe(true);

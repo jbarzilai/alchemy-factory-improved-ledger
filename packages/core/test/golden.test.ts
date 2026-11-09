@@ -33,7 +33,7 @@ const expectedLines = (lines: Record<string, Line>) =>
   Object.fromEntries(Object.entries(lines).map(([item, [count, coin, amount]]) => [item, { count, copper: copperOf(coin, amount) }]));
 const actualLines = (lines: MoneyLine[]) => Object.fromEntries(lines.map((l) => [l.item, { count: l.count, copper: l.copper }]));
 
-describe.each(['day100', 'day199'])('golden %s Daily Summary', (name) => {
+describe.each(['day100', 'day199'])('golden %s', (name) => {
   const fx = load(name);
   const prices = loadGameItems().purchasePrices;
   const get = async () => {
