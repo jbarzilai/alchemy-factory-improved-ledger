@@ -2,7 +2,7 @@ import type * as React from 'react';
 
 export type Unit = 'gold' | 'silver' | 'copper';
 export type UnitChoice = Unit | 'mixed';
-export type SeriesKey = 'sundries' | 'potion' | 'beverage' | 'jewelry' | 'relic' | 'orders' | 'quests' | 'purchasing';
+export type SeriesKey = 'sundries' | 'potion' | 'beverage' | 'jewelry' | 'relic' | 'orders' | 'quests' | 'minted' | 'purchasing' | 'melted';
 
 /** Gold from 1,000,000c, silver from 10,000c, else copper (same as the CLI). */
 export function pickUnit(maxAbsCopper: number): Unit;

@@ -38,7 +38,9 @@
   --color-relic: var(--series-relic);
   --color-orders: var(--series-orders);
   --color-quests: var(--series-quests);
+  --color-minted: var(--series-minted);
   --color-purchasing: var(--series-purchasing);
+  --color-melted: var(--series-melted);
 
   --font-sans: var(--font-ui);
   --font-mono: var(--font-data);

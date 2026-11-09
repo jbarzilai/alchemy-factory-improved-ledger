@@ -15,6 +15,8 @@ test('client builds offline with design tokens and component utilities', async (
     expect(js).toContain('Money by day');
     expect(css).toContain('--series-relic');
     expect(css).toMatch(/\.bg-panel\s*\{/);
+    expect(css).toMatch(/\.bg-minted\s*(?:,|\{)/);
+    expect(css).toMatch(/\.bg-melted\s*(?:,|\{)/);
     expect(css).toMatch(/\.pb-6\s*\{/); // Utility used only by the client, outside design/components.
     expect(await readFile(path.join(outDir, 'index.html'), 'utf8')).toContain('assets/');
   } finally { await rm(outDir, { recursive: true, force: true }); }

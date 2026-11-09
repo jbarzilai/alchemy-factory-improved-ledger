@@ -3,7 +3,7 @@ import { columnUnit, formatMoney, SeriesLegend, type SeriesKey } from '@design/c
 import type { HistoryResponse } from '../../shared/api';
 import { cssColor, seriesColor, useChartTheme } from '../chartTheme';
 import { EChart, type EChartsOption } from './EChart';
-export const incomeSeries: SeriesKey[] = ['sundries', 'potion', 'beverage', 'jewelry', 'relic', 'orders', 'quests', 'purchasing'];
+export const incomeSeries: Exclude<SeriesKey, 'minted' | 'melted'>[] = ['sundries', 'potion', 'beverage', 'jewelry', 'relic', 'orders', 'quests', 'purchasing'];
 const labels = ['Sundries', 'Potion', 'Beverage', 'Jewelry', 'Relic', 'Order Income', 'Quest Rewards', 'Purchasing Cost'];
 export function MoneyByDayChart({ days }: { days: HistoryResponse['days'] }) {
   const theme = useChartTheme();
