@@ -4,11 +4,11 @@ import { heatCells } from '../economics';
 const strengths = [18, 34, 52, 72, 95];
 export function Heatmap({ history }: { history: HistoryResponse }) {
   const cells = heatCells(history.allDays, history.events);
-  const unit = columnUnit(history.allDays.map(d => d.gameProfit));
+  const unit = columnUnit(history.allDays.map(d => d.dailySummaryProfit));
   return <Panel eyebrow="Whole save" title={`Daily Profit, Days ${history.allDays[0]?.day ?? 1} to ${history.allDays.at(-1)?.day ?? 1}`}>
     <div className="profit-heatmap" aria-label="Daily Profit with quests; ringed days mark events">
       {cells.map(cell => {
-        const value = formatMoney(cell.gameProfit, unit);
+        const value = formatMoney(cell.dailySummaryProfit, unit);
         const title = `Day ${cell.day}: ${value.text}${value.suffix}${cell.events.length ? ' · ' + cell.events.map(e => e.text).join('; ') : ''}`;
         return <a key={cell.day} href={`#/today/${cell.day}`} title={title} aria-label={title} className={`heat-cell${cell.events.length ? ' event-day' : ''}`} style={{ gridRow: cell.row + 1, gridColumn: cell.column + 1, background: cell.level < 0 ? 'var(--loss)' : `color-mix(in srgb, var(--accent) ${strengths[cell.level]}%, var(--panel))` }} />;
       })}

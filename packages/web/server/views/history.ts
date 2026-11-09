@@ -1,7 +1,7 @@
 import { toCopper, type ShopCategory } from '@af-ledger/core';
 import type { HistoryResponse } from '../../shared/api';
 import type { LedgerModel } from '../state';
-import { apiError, completedDays, dayIndex, sources, SOURCE_CATEGORIES, totals } from './day';
+import { apiError, completedDays, dayIndex, sources, SOURCE_CATEGORIES } from './day';
 
 function events(model: LedgerModel): HistoryResponse['events'] {
   const result: HistoryResponse['events'] = [];
@@ -89,7 +89,7 @@ export function historyView(model: LedgerModel, from: number, to: number): Histo
   if (start > end) return apiError(400, 'from must not exceed to');
   const completed = completedDays(model);
   return { from, to,
-    days: model.days.slice(start, end + 1).map((money, i) => ({ day: completed[start + i].displayDay, sources: sources(model, money), purchasing: money.purchasing.total, quests: money.quests?.total ?? 0, profit: totals(money).profit, gameProfit: money.net })),
-    allDays: model.days.map((money, i) => ({ day: completed[i].displayDay, gameProfit: money.net })), events: events(model),
+    days: model.days.slice(start, end + 1).map((money, i) => ({ day: completed[start + i].displayDay, sources: sources(model, money), purchasing: money.purchasing.total, quests: money.quests?.total ?? 0, dailySummaryProfit: money.dailySummaryProfit })),
+    allDays: model.days.map((money, i) => ({ day: completed[i].displayDay, dailySummaryProfit: money.dailySummaryProfit })), events: events(model),
   };
 }

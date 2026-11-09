@@ -31,9 +31,9 @@ export function range(model: LedgerModel, from?: unknown, to?: unknown): { from:
   return { from: start, to: end };
 }
 export const totals = (money: DayMoney): Totals => ({
-  earnings: money.shop.total + money.orders.total, expenses: money.expenses,
-  profit: money.net - (money.quests?.total ?? 0), quests: money.quests?.total ?? 0,
-  gameProfit: money.net, questCount: money.questsSubmitted,
+  shop: money.shop.total,
+  quests: money.quests?.total ?? 0, beforeQuests: money.dailySummaryProfit - (money.quests?.total ?? 0),
+  dailySummaryProfit: money.dailySummaryProfit, questCount: money.questsSubmitted,
 });
 export function sources(model: LedgerModel, money: DayMoney): Record<SourceKey, number> {
   const cats = shopByCategory(money.shop.lines, model.ledger.categories);

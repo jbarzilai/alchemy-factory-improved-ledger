@@ -118,7 +118,7 @@ describe('dayMoney with quest pricing', () => {
     ],
   };
 
-  it('keeps priced and unpriced quests in save order and adds only priced rewards to earnings/net', () => {
+  it('keeps priced and unpriced quests in save order and adds only priced rewards to earnings/Daily Summary Profit', () => {
     const before = structuredClone(day);
     const money = dayMoney(day, new Map([['BlastPotion', 100]]), { questPrices, bonus: 1.28 });
     expect(money.questsSubmitted).toBe(5);
@@ -133,7 +133,7 @@ describe('dayMoney with quest pricing', () => {
     });
     expect(money.earnings).toBe(1_392_138);
     expect(money.expenses).toBe(200);
-    expect(money.net).toBe(1_391_938);
+    expect(money.dailySummaryProfit).toBe(1_391_938);
     expect(day).toEqual(before);
   });
 

@@ -113,7 +113,7 @@ function render(
   const totals = [
     ['Earnings', current.earnings, previous?.earnings ?? null],
     ['Expenses', current.expenses, previous?.expenses ?? null],
-    ['Profit', current.net, previous?.net ?? null],
+    ['Profit', current.dailySummaryProfit, previous?.dailySummaryProfit ?? null],
   ] as const;
   sections.push(`${heading('Bottom line')}\n${signs(table([
     ['', 'Amount', 'Previous', 'Change', 'Change %'],

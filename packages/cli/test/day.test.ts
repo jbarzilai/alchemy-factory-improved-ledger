@@ -68,7 +68,7 @@ describe('fixture daily ledger', () => {
     const data = parseResult(json.out);
     expect(data.money.earnings).toBe(1289241);
     expect(data.money.expenses).toBe(979800);
-    expect(data.money.net).toBe(309441);
+    expect(data.money.dailySummaryProfit).toBe(309441);
     expect(data.previous).toEqual(ledger.money(ledger.snapshot.days[98]));
     expect(data.previousDay).toBe(99);
     expect(data.partial).toBe(false);

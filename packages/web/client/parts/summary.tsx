@@ -6,12 +6,12 @@ export function summaryLines(day: DayResponse): SummaryLine[] {
   const t = day.totals, p = day.previousTotals;
   const orders = day.sources.find(s => s.key === 'orders')!;
   return [
-    { label: 'Shop Income', copper: t.earnings - orders.copper, previous: p ? p.earnings - (orders.previous ?? 0) : null, symbol: '' },
+    { label: 'Shop Income', copper: t.shop, previous: p?.shop ?? null, symbol: '' },
     { label: 'Order Income', copper: orders.copper, previous: orders.previous, symbol: '+', series: 'orders' },
     { label: 'Purchasing Cost', copper: day.purchasing.copper, previous: day.purchasing.previous, symbol: '−', series: 'purchasing', expense: true },
-    { label: 'Subtotal before quests', copper: t.profit, previous: p?.profit ?? null, symbol: '=', subtotal: true },
+    { label: 'Subtotal before quests', copper: t.beforeQuests, previous: p?.beforeQuests ?? null, symbol: '=', subtotal: true },
     { label: 'Quest Rewards', copper: t.quests, previous: p?.quests ?? null, symbol: '+', series: 'quests', quest: true },
-    { label: 'Profit', copper: t.gameProfit, previous: p?.gameProfit ?? null, symbol: '=', final: true },
+    { label: 'Profit', copper: t.dailySummaryProfit, previous: p?.dailySummaryProfit ?? null, symbol: '=', final: true },
   ];
 }
 export function changeCells(copper: number, previous: number | null, unit: Unit, expense = false) {

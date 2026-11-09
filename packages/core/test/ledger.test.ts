@@ -40,15 +40,15 @@ describe('dayMoney', () => {
     expect(m.purchasing.unpriced).toEqual([{ item: 'Mystery', count: 4 }]);
   });
 
-  it('computes earnings, expenses and net with quests null when quest pricing is omitted', () => {
-    expect(m).toMatchObject({ earnings: 3_309_200, expenses: 1_011_200, net: 2_298_000, quests: null, questsSubmitted: 0 });
+  it('computes earnings, expenses and dailySummaryProfit with quests null when quest pricing is omitted', () => {
+    expect(m).toMatchObject({ earnings: 3_309_200, expenses: 1_011_200, dailySummaryProfit: 2_298_000, quests: null, questsSubmitted: 0 });
   });
 
   it('returns zero totals and empty lines for an empty in-progress day', () => {
     expect(dayMoney({ ...day([]), complete: false, profitCoef: null }, prices)).toEqual({
       shop: { total: 0, lines: [] }, orders: { total: 0, lines: [] },
       purchasing: { total: 0, lines: [], unpriced: [] },
-      earnings: 0, expenses: 0, net: 0, quests: null, questsSubmitted: 0,
+      earnings: 0, expenses: 0, dailySummaryProfit: 0, quests: null, questsSubmitted: 0,
     });
   });
 
@@ -90,7 +90,7 @@ describe('dayMoney', () => {
       goldFactor: 1.3, awardGold: { gold: 6, silver: 0, copper: 0 }, requires: [],
     });
     expect(dayMoney(input, prices)).toMatchObject({
-      questsSubmitted: 1, quests: null, earnings: 0, net: 0,
+      questsSubmitted: 1, quests: null, earnings: 0, dailySummaryProfit: 0,
     });
   });
 });

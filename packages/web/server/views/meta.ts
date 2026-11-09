@@ -12,7 +12,7 @@ export function metaView(model: LedgerModel, stale: boolean, iconItems: string[]
     version: publicVersion(version), stale, firstDay: completed[0]?.displayDay ?? 0, latestDay: completed.at(-1)?.displayDay ?? 0,
     partialDay: partial?.displayDay ?? null, questBonusPct: Math.round(ledger.bonus * 100), settings, flagDefaults, iconItems,
     days: days.map((money, i) => ({ day: completed[i].displayDay,
-      profit: money.net - (money.quests?.total ?? 0), quests: money.quests?.total ?? 0,
-      gameProfit: money.net, questCount: money.questsSubmitted, flagCount: flags[i].length })),
+      quests: money.quests?.total ?? 0,
+      dailySummaryProfit: money.dailySummaryProfit, questCount: money.questsSubmitted, flagCount: flags[i].length })),
   };
 }

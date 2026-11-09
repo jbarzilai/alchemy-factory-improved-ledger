@@ -27,17 +27,17 @@ export function selectMovers(movers: ItemsResponse['movers'], dayCount = 2) {
 export function historyKpis(days: HistoryResponse['days'], questDays: number) {
   if (!days.length) return null;
   return {
-    average: Math.round(days.reduce((n, d) => n + d.gameProfit, 0) / days.length),
+    average: Math.round(days.reduce((n, d) => n + d.dailySummaryProfit, 0) / days.length),
     averageQuests: Math.round(days.reduce((n, d) => n + d.quests, 0) / days.length),
-    best: days.reduce((a, b) => a.gameProfit >= b.gameProfit ? a : b),
-    worst: days.reduce((a, b) => a.gameProfit <= b.gameProfit ? a : b), questDays,
+    best: days.reduce((a, b) => a.dailySummaryProfit >= b.dailySummaryProfit ? a : b),
+    worst: days.reduce((a, b) => a.dailySummaryProfit <= b.dailySummaryProfit ? a : b), questDays,
   };
 }
 export function heatLevel(copper: number): number {
   return copper < 0 ? -1 : copper < 1_000_000 ? 0 : copper < 2_500_000 ? 1 : copper < 5_000_000 ? 2 : copper < 8_000_000 ? 3 : 4;
 }
 export function heatCells(days: HistoryResponse['allDays'], events: HistoryResponse['events']) {
-  return days.map(d => ({ ...d, row: Math.floor((d.day - 1) / 20), column: (d.day - 1) % 20, level: heatLevel(d.gameProfit), events: events.filter(e => e.day === d.day) }));
+  return days.map(d => ({ ...d, row: Math.floor((d.day - 1) / 20), column: (d.day - 1) % 20, level: heatLevel(d.dailySummaryProfit), events: events.filter(e => e.day === d.day) }));
 }
 export function customRange(mode: 'last' | 'days', last: string, from: string, to: string): Range | null {
   const positive = (s: string) => /^\d+$/.test(s) && Number.isSafeInteger(Number(s)) && Number(s) > 0;

@@ -21,7 +21,7 @@ export type DayMoney = {
   questsSubmitted: number;
   earnings: number; // shop + orders + priced quests
   expenses: number; // purchasing (priced items only)
-  net: number;
+  dailySummaryProfit: number;
 };
 
 export const UNCATEGORIZED = 'Uncategorized';
@@ -70,7 +70,7 @@ export function dayMoney(day: DayLedger, prices: Prices, questOptions?: { questP
     questsSubmitted: day.questsSubmitted.length,
     earnings,
     expenses: purchasingTotal,
-    net: earnings - purchasingTotal,
+    dailySummaryProfit: earnings - purchasingTotal,
   };
 }
 

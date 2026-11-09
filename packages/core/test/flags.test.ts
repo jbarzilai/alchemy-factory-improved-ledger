@@ -16,7 +16,7 @@ function day(input: { shop?: Lines; orders?: Lines; purchasing?: Lines; unpriced
   };
   const earnings = shop.total + orders.total + (input.quests ?? 0);
   return { shop, orders, purchasing, quests: { total: input.quests ?? 0, bonus: 1, lines: [], unpriced: [] },
-    questsSubmitted: 0, earnings, expenses: purchasing.total, net: earnings - purchasing.total };
+    questsSubmitted: 0, earnings, expenses: purchasing.total, dailySummaryProfit: earnings - purchasing.total };
 }
 const history = (units: number[]) => units.map(n => day({ shop: { X: [n, n * 10] } }));
 const baseline = (d: DayMoney) => [d, d, d];

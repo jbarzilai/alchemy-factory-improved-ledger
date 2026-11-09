@@ -33,7 +33,7 @@ const expectedLines = (lines: Record<string, Line>) =>
   Object.fromEntries(Object.entries(lines).map(([item, [count, coin, amount]]) => [item, { count, copper: copperOf(coin, amount) }]));
 const actualLines = (lines: MoneyLine[]) => Object.fromEntries(lines.map((l) => [l.item, { count: l.count, copper: l.copper }]));
 
-describe.each(['day100', 'day199'])('golden %s', (name) => {
+describe.each(['day100', 'day199'])('golden %s Daily Summary', (name) => {
   const fx = load(name);
   const prices = loadGameItems().purchasePrices;
   const get = async () => {
@@ -76,14 +76,14 @@ describe.each(['day100', 'day199'])('golden %s', (name) => {
     expect(pairToCopper(fx.questRewards)).toBe(fx.totals.questCopperEquiv); // fixture self-check
   });
 
-  it('has quests null and excludes quest awards from earnings/net without quest pricing', async () => {
+  it('has quests null and excludes quest awards from earnings/Daily Summary Profit without quest pricing', async () => {
     const { money } = await get();
     expect(money.quests).toBeNull();
     expect(money.earnings).toBe(fx.totals.shopCopperEquiv + fx.totals.orderCopperEquiv);
-    expect(money.net).toBe(fx.totals.netCopperEquiv - fx.totals.questCopperEquiv);
+    expect(money.dailySummaryProfit).toBe(fx.totals.netCopperEquiv - fx.totals.questCopperEquiv);
   });
 
-  it('includes computed quests using the fixture skills in earnings and net', async () => {
+  it('includes computed quests using the fixture skills in earnings and Daily Summary Profit', async () => {
     const snapshot = await fixtureSnapshot();
     expect(snapshot.skills).toEqual(expect.arrayContaining(['QuestSkill1', 'QuestSkill2', 'QuestSkill3', 'QuestSkill4']));
     const bonus = questBonus(snapshot.skills, loadQuestSkills());
@@ -93,7 +93,7 @@ describe.each(['day100', 'day199'])('golden %s', (name) => {
     expect(money.quests!.lines).toHaveLength(QUESTS_SUBMITTED[name]);
     expect(Math.abs(money.quests!.total - fx.totals.questCopperEquiv)).toBeLessThanOrEqual(5);
     expect(money.earnings).toBe(money.shop.total + money.orders.total + money.quests!.total);
-    expect(money.net).toBe(money.earnings - money.expenses);
+    expect(money.dailySummaryProfit).toBe(money.earnings - money.expenses);
   });
 });
 
@@ -103,7 +103,7 @@ describe('golden day100 Daily Summary screen', () => {
     const money = dayMoney((await fixtureSnapshot()).days[fx.saveDay], loadGameItems().purchasePrices);
     expect(money.earnings).toBe(pairToCopper(fx.summaryScreen!.earnings));
     expect(money.expenses).toBe(pairToCopper(fx.summaryScreen!.expenses));
-    expect(money.net).toBe(fx.summaryScreen!.profitCopper);
+    expect(money.dailySummaryProfit).toBe(fx.summaryScreen!.profitCopper);
   });
 
   it('still matches the Daily Summary exactly with quest pricing enabled', async () => {
@@ -114,6 +114,6 @@ describe('golden day100 Daily Summary screen', () => {
     expect(money.quests).toMatchObject({ total: 0, lines: [], unpriced: [] });
     expect(money.earnings).toBe(pairToCopper(fx.summaryScreen!.earnings));
     expect(money.expenses).toBe(pairToCopper(fx.summaryScreen!.expenses));
-    expect(money.net).toBe(fx.summaryScreen!.profitCopper);
+    expect(money.dailySummaryProfit).toBe(fx.summaryScreen!.profitCopper);
   });
 });

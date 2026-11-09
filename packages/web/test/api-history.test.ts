@@ -22,11 +22,11 @@ it('sums Days 170–199 and includes whole-save heatmap and events', async () =>
   expect(result).toEqual(historyView(model, 170, 199));
   expect(result.days).toHaveLength(30);
   const sum = (get: (d: HistoryResponse['days'][number]) => number) => result.days.reduce((n, d) => n + get(d), 0);
-  expect(sum(d => d.profit)).toBe(225192651); expect(sum(d => d.quests)).toBe(11684776); expect(sum(d => d.gameProfit)).toBe(236877427);
+  expect(sum(d => d.quests)).toBe(11684776); expect(sum(d => d.dailySummaryProfit)).toBe(236877427);
   expect(result.days.filter(d => d.quests > 0)).toHaveLength(18);
   expect(sum(d => Object.entries(d.sources).filter(([key]) => key !== 'orders').reduce((n, [, v]) => n + v, 0))).toBe(238470911);
   expect(sum(d => d.sources.orders)).toBe(149336000); expect(sum(d => d.purchasing)).toBe(162614260);
-  expect(result.allDays).toHaveLength(199); expect(result.allDays[198]).toEqual({ day: 199, gameProfit: 5771730 });
+  expect(result.allDays).toHaveLength(199); expect(result.allDays[198]).toEqual({ day: 199, dailySummaryProfit: 5771730 });
   for (const event of [
     { day: 50, kind: 'shop-profit', text: 'Shop Profit 110%' }, { day: 97, kind: 'shop-profit', text: 'Shop Profit 120%' },
     { day: 52, kind: 'first-order', item: 'Bandage' }, { day: 133, kind: 'first-sale', item: 'Mars' },

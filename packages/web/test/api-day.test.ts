@@ -14,8 +14,8 @@ it('serves Day 199 totals, sources, bonuses, flags, quests and notices', async (
   expect(response.statusCode).toBe(200);
   const day = response.json<DayResponse>();
   expect(day).toEqual(dayView(model, 199));
-  expect(day.totals).toEqual({ earnings: 12246045, expenses: 7069840, profit: 5176205, quests: 595525, gameProfit: 5771730, questCount: 2 });
-  expect(day.previousTotals).toEqual({ earnings: 15406376, expenses: 7352480, profit: 8053896, quests: 0, gameProfit: 8053896, questCount: 0 });
+  expect(day.totals).toEqual({ shop: 6397045, quests: 595525, beforeQuests: 5176205, dailySummaryProfit: 5771730, questCount: 2 });
+  expect(day.previousTotals).toEqual({ shop: 8450376, quests: 0, beforeQuests: 8053896, dailySummaryProfit: 8053896, questCount: 0 });
   expect(day.sources.map(s => [s.key, s.copper, s.previous])).toEqual([
     ['sundries', 370750, 524612], ['potion', 619094, 603912], ['beverage', 204792, 181341], ['jewelry', 66409, 212511], ['relic', 5136000, 6928000], ['orders', 5849000, 6956000],
   ]);
@@ -64,8 +64,8 @@ it('item lines add up to the day totals on every completed day', () => {
   for (const d of model.ledger.snapshot.days.filter(d => d.complete)) {
     const view = dayView(model, d.displayDay);
     const sum = (lines: DayItemLine[]) => lines.reduce((t, l) => t + (l.copper ?? 0), 0);
-    expect(sum(view.items.shop) + sum(view.items.orders)).toBe(view.totals.earnings);
-    expect(sum(view.items.purchasing)).toBe(view.totals.expenses);
+    expect(sum(view.items.shop) + sum(view.items.orders)).toBe(view.totals.shop + view.sources.find(s => s.key === 'orders')!.copper);
+    expect(sum(view.items.purchasing)).toBe(view.purchasing.copper);
   }
 });
 it('gives every flagged item a line, even on day 3 of a stop', () => {
