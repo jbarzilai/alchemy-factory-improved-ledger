@@ -9,6 +9,8 @@ packages/core/native/bin/*
 *.sav
 # ...except the golden-test fixture, which is committed (checked: no personal or account data, 2026-10-27)
 !fixtures/saves/SaveGame3.sav
+# ...and the Sandbox fixture for the coin tests (scanned 2026-11-08: no Steam ID, user path or user name in the file or any decoded block)
+!fixtures/saves/Sand-SaveGame1.sav
 exports/
 .env
 config/flags.local.json
