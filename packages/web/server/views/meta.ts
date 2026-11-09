@@ -13,6 +13,6 @@ export function metaView(model: LedgerModel, stale: boolean, iconItems: string[]
     partialDay: partial?.displayDay ?? null, questBonusPct: Math.round(ledger.bonus * 100), settings, flagDefaults, iconItems,
     days: days.map((money, i) => ({ day: completed[i].displayDay,
       quests: money.quests?.total ?? 0,
-      dailySummaryProfit: money.dailySummaryProfit, questCount: money.questsSubmitted, flagCount: flags[i].length })),
+      profit: money.profit, questCount: money.questsSubmitted, flagCount: flags[i].length })),
   };
 }

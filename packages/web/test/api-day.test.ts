@@ -14,8 +14,8 @@ it('serves Day 199 totals, sources, bonuses, flags, quests and notices', async (
   expect(response.statusCode).toBe(200);
   const day = response.json<DayResponse>();
   expect(day).toEqual(dayView(model, 199));
-  expect(day.totals).toEqual({ shop: 6397045, quests: 595525, beforeQuests: 5176205, dailySummaryProfit: 5771730, questCount: 2 });
-  expect(day.previousTotals).toEqual({ shop: 8450376, quests: 0, beforeQuests: 8053896, dailySummaryProfit: 8053896, questCount: 0 });
+  expect(day.totals).toEqual({ shop: 6397045, quests: 595525, beforeQuests: 5176205, dailySummaryProfit: 5771730, minted: 0, melted: 0, profit: 5771730, questCount: 2 });
+  expect(day.previousTotals).toEqual({ shop: 8450376, quests: 0, beforeQuests: 8053896, dailySummaryProfit: 8053896, minted: 0, melted: 0, profit: 8053896, questCount: 0 });
   expect(day.sources.map(s => [s.key, s.copper, s.previous])).toEqual([
     ['sundries', 370750, 524612], ['potion', 619094, 603912], ['beverage', 204792, 181341], ['jewelry', 66409, 212511], ['relic', 5136000, 6928000], ['orders', 5849000, 6956000],
   ]);
@@ -66,6 +66,8 @@ it('item lines add up to the day totals on every completed day', () => {
     const sum = (lines: DayItemLine[]) => lines.reduce((t, l) => t + (l.copper ?? 0), 0);
     expect(sum(view.items.shop) + sum(view.items.orders)).toBe(view.totals.shop + view.sources.find(s => s.key === 'orders')!.copper);
     expect(sum(view.items.purchasing)).toBe(view.purchasing.copper);
+    expect(sum(view.items.minted)).toBe(view.totals.minted);
+    expect(sum(view.items.melted)).toBe(view.totals.melted);
   }
 });
 it('gives every flagged item a line, even on day 3 of a stop', () => {
@@ -86,4 +88,17 @@ it('merges duplicates, keeps unpriced purchases last and marks uncategorized ite
   const { items } = dayView({ ...model, days }, 199);
   expect(items.shop.find(l => l.item === 'NoCategory')).toMatchObject({ category: 'uncategorized', units: 3, copper: 30, previousUnits: 0, previousCopper: 0 });
   expect(items.purchasing.at(-1)).toMatchObject({ item: 'Mystery', units: 4, copper: null, previousUnits: 0, previousCopper: 0 });
+});
+
+it('exposes melting lines and retains coin visibility the day after activity', async () => {
+  const melting = (await app.inject('/api/day/178')).json<DayResponse>();
+  expect(melting.showCoins).toBe(true);
+  expect(melting.items.melted).toEqual([{ item: 'CopperCoin', name: model.ledger.name('CopperCoin'), category: null,
+    units: 84000, copper: 84000, previousUnits: 84000, previousCopper: 84000 }]);
+  expect(melting.items.minted).toEqual([]);
+  expect(melting.totals.profit).toBe(melting.totals.dailySummaryProfit - 84000);
+  const stopped = (await app.inject('/api/day/180')).json<DayResponse>();
+  expect(stopped.showCoins).toBe(true);
+  expect(stopped.items.melted).toEqual([expect.objectContaining({ category: null, units: 0, copper: 0, previousUnits: 67200, previousCopper: 67200 })]);
+  for (const day of [1, 144]) expect((await app.inject(`/api/day/${day}`)).json<DayResponse>().showCoins).toBe(false);
 });

@@ -8,7 +8,7 @@ const labels = ['Sundries', 'Potion', 'Beverage', 'Jewelry', 'Relic', 'Order Inc
 export function MoneyByDayChart({ days }: { days: HistoryResponse['days'] }) {
   const theme = useChartTheme();
   const option = useMemo<EChartsOption>(() => {
-    const unit = columnUnit(days.flatMap(d => [Object.values(d.sources).reduce((a, b) => a + b, 0) + d.quests, d.purchasing, d.dailySummaryProfit]));
+    const unit = columnUnit(days.flatMap(d => [Object.values(d.sources).reduce((a, b) => a + b, 0) + d.quests, d.purchasing, d.profit]));
     const money = (n: number) => { const v = formatMoney(n, unit); return v.text + v.suffix; };
     const option: EChartsOption = {
       textStyle: { fontFamily: cssColor('--font-ui'), color: cssColor('--muted') },
@@ -19,7 +19,7 @@ export function MoneyByDayChart({ days }: { days: HistoryResponse['days'] }) {
       series: [
         ...incomeSeries.map((key, i) => ({ name: labels[i], type: 'bar', stack: 'money', itemStyle: { color: seriesColor(key) }, data: days.map(d => key === 'purchasing' ? -d.purchasing : key === 'quests' ? d.quests : d.sources[key]) })),
         ...(days.some(d => d.sources.uncategorized !== 0) ? [{ name: 'Uncategorized', type: 'bar', stack: 'money', itemStyle: { color: cssColor('--muted') }, data: days.map(d => d.sources.uncategorized) }] : []),
-        { name: 'Profit', type: 'line', itemStyle: { color: cssColor('--ink') }, lineStyle: { width: 2 }, symbolSize: 5, data: days.map(d => d.dailySummaryProfit) },
+        { name: 'Profit', type: 'line', itemStyle: { color: cssColor('--ink') }, lineStyle: { width: 2 }, symbolSize: 5, data: days.map(d => d.profit) },
       ],
     };
     return option;

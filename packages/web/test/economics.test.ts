@@ -26,11 +26,11 @@ test('custom input rejects incomplete, reversed, fractional and unsafe ranges', 
 });
 test('heatmap uses copper thresholds and rows of twenty, preserving event days', () => {
   expect([-1, 0, 999999, 1000000, 2500000, 5000000, 8000000].map(heatLevel)).toEqual([-1, 0, 0, 1, 2, 3, 4]);
-  const cells = heatCells([{ day: 20, dailySummaryProfit: -1 }, { day: 21, dailySummaryProfit: 5 }], [{ day: 21, kind: 'stopped', text: 'Blast Potion stops selling' }]);
+  const cells = heatCells([{ day: 20, profit: -1 }, { day: 21, profit: 5 }], [{ day: 21, kind: 'stopped', text: 'Blast Potion stops selling' }]);
   expect(cells.map(c => [c.row, c.column, c.events.length])).toEqual([[0, 19, 0], [1, 0, 1]]);
 });
-test('KPIs use dailySummaryProfit directly, including quests exactly once', () => {
-  const days = [{ day: 1, dailySummaryProfit: 100, quests: 0 }, { day: 2, dailySummaryProfit: 400, quests: 300 }] as HistoryResponse['days'];
+test('KPIs use profit directly, including quests exactly once', () => {
+  const days = [{ day: 1, profit: 100, quests: 0 }, { day: 2, profit: 400, quests: 300 }] as HistoryResponse['days'];
   expect(historyKpis(days, 1)).toMatchObject({ average: 250, averageQuests: 150, best: { day: 2 }, worst: { day: 1 }, questDays: 1 });
   expect(historyKpis([], 0)).toBeNull();
 });
@@ -56,8 +56,8 @@ test('fixture history and item economics preserve the canvas checkpoints', async
   const history = historyView(model, 170, 199);
   const cells = heatCells(history.allDays, history.events);
   expect(cells.find(c => c.day === 191)?.events).toContainEqual(expect.objectContaining({ item: 'BlastPotion', kind: 'stopped' }));
-  expect(history.days.at(-1)?.dailySummaryProfit).toBe(5771730);
-  expect(historyKpis(history.days, 18)).toMatchObject({ average: 7895914, averageQuests: 389493, questDays: 18 });
+  expect(history.days.at(-1)?.profit).toBe(5771730);
+  expect(historyKpis(history.days, 18)).toMatchObject({ average: 7868461, averageQuests: 389493, questDays: 18 });
   const rows = itemsView(model, 170, 199);
   const faller = selectMovers(rows.movers).falling[0];
   expect(faller.item).toBe('BlastPotion');

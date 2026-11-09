@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { earlierEndIndex, moneyChange, percentSetting, questCount } from '../client/today';
+import { summaryLines, earlierEndIndex, moneyChange, percentSetting, questCount } from '../client/today';
 
 test.each([[14, 13], [19, 13], [28, 14], [13, 13]])('earlier page from index %i ends at %i', (index, expected) => {
   expect(earlierEndIndex(index)).toBe(expected);
@@ -21,4 +21,17 @@ test('quest counts use singular only for one', () => {
   expect(questCount(0)).toBe('0 quests');
   expect(questCount(1)).toBe('1 quest');
   expect(questCount(2)).toBe('2 quests');
+});
+
+test('summary Profit copies the core total and only item rows carry streams', async () => {
+  const { fixtureCache } = await import('./helpers');
+  const { dayView } = await import('../server/views/day');
+  const { model } = await fixtureCache().get();
+  const day = dayView(model, 178);
+  const lines = summaryLines(day);
+  expect(lines.at(-1)).toMatchObject({ copper: day.totals.profit, previous: day.previousTotals!.profit, final: true });
+  expect(lines.map(line => [line.label, line.stream])).toEqual([
+    ['Shop Income', 'shop'], ['Order Income', 'orders'], ['Purchasing Cost', 'purchasing'],
+    ['Subtotal before quests', undefined], ['Quest Rewards', undefined], ['Profit', undefined],
+  ]);
 });
