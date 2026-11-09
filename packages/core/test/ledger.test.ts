@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { loadItemNames } from '../src/config';
-import { UNCATEGORIZED, dayMoney, shopByCategory } from '../src/ledger';
+import { UNCATEGORIZED, dayMoney, hasCoinActivity, showCoinRows, shopByCategory } from '../src/ledger';
 import type { DayLedger, ItemDayRecord } from '../src/model';
 
 const zero = { gold: 0, silver: 0, copper: 0 };
@@ -48,7 +48,8 @@ describe('dayMoney', () => {
     expect(dayMoney({ ...day([]), complete: false, profitCoef: null }, prices)).toEqual({
       shop: { total: 0, lines: [] }, orders: { total: 0, lines: [] },
       purchasing: { total: 0, lines: [], unpriced: [] },
-      earnings: 0, expenses: 0, dailySummaryProfit: 0, quests: null, questsSubmitted: 0,
+      minted: { total: 0, lines: [] }, melted: { total: 0, lines: [] },
+      earnings: 0, expenses: 0, beforeQuests: 0, dailySummaryProfit: 0, profit: 0, quests: null, questsSubmitted: 0,
     });
   });
 
@@ -92,6 +93,84 @@ describe('dayMoney', () => {
     expect(dayMoney(input, prices)).toMatchObject({
       questsSubmitted: 1, quests: null, earnings: 0, dailySummaryProfit: 0,
     });
+  });
+});
+
+describe('coin accounting', () => {
+  const mintRecords = [rec('CopperCoin', { producedCount: 66000 }), rec('SilverCoin', { producedCount: 1565 }),
+    rec('GoldCoin', { producedCount: 120 })];
+  const mintLines = [{ item: 'GoldCoin', count: 120, copper: 12000000 },
+    { item: 'SilverCoin', count: 1565, copper: 1565000 }, { item: 'CopperCoin', count: 66000, copper: 66000 }];
+  const prices = new Map([['Wood', 200]]);
+
+  it('values all minted coins at face value, largest first', () => {
+    const money = dayMoney(day(mintRecords), prices);
+    expect(money.minted).toEqual({ total: 13631000, lines: mintLines });
+    expect(money.melted).toEqual({ total: 0, lines: [] });
+  });
+
+  it('values silver and gold melted at face value', () => {
+    const money = dayMoney(day([rec('SilverCoin', { consumedCount: 6 }), rec('GoldCoin', { consumedCount: 3 })]), prices);
+    expect(money.melted).toEqual({ total: 306000, lines: [
+      { item: 'GoldCoin', count: 3, copper: 300000 }, { item: 'SilverCoin', count: 6, copper: 6000 },
+    ] });
+  });
+
+  it('includes all six coin flows in Profit while preserving Daily Summary totals and priced quests', () => {
+    const input = day([rec('Salt', { soldCount: 1, soldValue: { ...zero, copper: 1000 } }),
+      rec('Bandage', { dispatchedCount: 2, dispatchValue: { ...zero, copper: 500 } }), rec('Wood', { restockCount: 2 })]);
+    input.questsSubmitted.push({ questId: 'Main7', isMain: true, isRandom: false, acceptDay: 0, submitDay: 5,
+      goldFactor: 0, awardGold: { ...zero, copper: 100 }, requires: [] });
+    const options = { questPrices: new Map<string, number>(), bonus: 1 };
+    const base = dayMoney(input, prices, options);
+    const money = dayMoney({ ...input, items: [...input.items, ...mintRecords.map(r => ({ ...r, consumedCount: 3 }))] }, prices, options);
+    expect(money.minted.total).toBe(13631000);
+    expect(money.melted.total).toBe(303003);
+    expect(money.quests?.total).toBe(100);
+    expect(money.earnings).toBe(base.earnings);
+    expect(money.expenses).toBe(base.expenses);
+    expect(money.beforeQuests).toBe(1100);
+    expect(money.beforeQuests + (money.quests?.total ?? 0)).toBe(money.dailySummaryProfit);
+    expect(money.profit).toBe(money.earnings - money.expenses + money.minted.total - money.melted.total);
+  });
+
+  it('sums repeated coin records into one line per stream without changing the input', () => {
+    const input = day([rec('CopperCoin', { producedCount: 10, consumedCount: 2 }),
+      rec('CopperCoin', { producedCount: 20, consumedCount: 3 }), rec('GoldCoin', {})]);
+    const before = structuredClone(input);
+    const money = dayMoney(input, prices);
+    expect(money.minted).toEqual({ total: 30, lines: [{ item: 'CopperCoin', count: 30, copper: 30 }] });
+    expect(money.melted).toEqual({ total: 5, lines: [{ item: 'CopperCoin', count: 5, copper: 5 }] });
+    expect(input).toEqual(before);
+  });
+
+  it('ignores non-coin production and consumption', () => {
+    expect(dayMoney(day([rec('Gear', { producedCount: 50, consumedCount: 50 })]), prices)).toEqual(dayMoney(day([]), prices));
+  });
+
+  it('includes coins with quest pricing off and ignores purchase prices for coin face values', () => {
+    const input = day([...mintRecords, rec('GoldCoin', { consumedCount: 3 }), rec('CopperCoin', { consumedCount: 10 })]);
+    const money = dayMoney(input, new Map([['GoldCoin', 153000], ['CopperCoin', 2]]));
+    expect(money.quests).toBeNull();
+    expect(money.beforeQuests).toBe(money.dailySummaryProfit);
+    expect(money.minted.total).toBe(13631000);
+    expect(money.melted.total).toBe(300010);
+    expect(money.profit).toBe(money.earnings - money.expenses + 13631000 - 300010);
+  });
+
+  it('shows coin rows for activity today or yesterday, including a first day', () => {
+    const none = dayMoney(day([]), prices);
+    const minted = dayMoney(day(mintRecords), prices);
+    const melted = dayMoney(day([rec('CopperCoin', { consumedCount: 1 })]), prices);
+    expect(hasCoinActivity(none)).toBe(false);
+    expect(hasCoinActivity(minted)).toBe(true);
+    expect(hasCoinActivity(melted)).toBe(true);
+    expect(showCoinRows(none, null)).toBe(false);
+    expect(showCoinRows(minted, null)).toBe(true);
+    expect(showCoinRows(melted, null)).toBe(true);
+    expect(showCoinRows(none, melted)).toBe(true);
+    expect(showCoinRows(none, minted)).toBe(true);
+    expect(showCoinRows(none, none)).toBe(false);
   });
 });
 

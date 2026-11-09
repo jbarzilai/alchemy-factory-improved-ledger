@@ -78,6 +78,7 @@ describe.each(['day100', 'day199'])('golden %s', (name) => {
 
   it('has quests null and excludes quest awards from earnings/Daily Summary Profit without quest pricing', async () => {
     const { money } = await get();
+    expect(money.profit).toBe(money.dailySummaryProfit);
     expect(money.quests).toBeNull();
     expect(money.earnings).toBe(fx.totals.shopCopperEquiv + fx.totals.orderCopperEquiv);
     expect(money.dailySummaryProfit).toBe(fx.totals.netCopperEquiv - fx.totals.questCopperEquiv);
@@ -89,6 +90,7 @@ describe.each(['day100', 'day199'])('golden %s', (name) => {
     const bonus = questBonus(snapshot.skills, loadQuestSkills());
     expect(bonus).toBeCloseTo(1.28, 10);
     const money = dayMoney(snapshot.days[fx.saveDay], prices, { questPrices: loadGameItems().questPrices, bonus });
+    expect(money.profit).toBe(money.dailySummaryProfit);
     expect(money.quests!.unpriced).toEqual([]);
     expect(money.quests!.lines).toHaveLength(QUESTS_SUBMITTED[name]);
     expect(Math.abs(money.quests!.total - fx.totals.questCopperEquiv)).toBeLessThanOrEqual(5);

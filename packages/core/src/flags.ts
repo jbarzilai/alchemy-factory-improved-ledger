@@ -1,4 +1,4 @@
-// Pure daily checks; quests never enter the streams or their income baselines.
+// Pure daily checks; coins, like quests, never enter flag streams or their income baselines.
 import type { DayMoney, MoneyLine } from './ledger';
 
 export type FlagSettings = {
@@ -16,6 +16,7 @@ export const DEFAULT_FLAG_SETTINGS: FlagSettings = {
   windowDays: 3, dropRatio: 0.5, riseRatio: 2, moneyDropShare: 0.1, purchaseShopShare: 0.075, zeroRunDays: 3,
 };
 export type FlagStream = 'shop' | 'orders' | 'purchasing';
+export type MoneyStream = FlagStream | 'minted' | 'melted';
 export type FlagKind = 'drop' | 'stopped' | 'money-drop' | 'rise' | 'money-rise';
 export type Flag = {
   stream: FlagStream; item: string; kind: FlagKind;
@@ -28,7 +29,7 @@ export type StreamAmount = { count: number; copper: number | null };
 const ABSENT: StreamAmount = { count: 0, copper: 0 };
 const STREAMS: FlagStream[] = ['shop', 'orders', 'purchasing'];
 
-export function streamAmounts(day: DayMoney, stream: FlagStream): Map<string, StreamAmount> {
+export function streamAmounts(day: DayMoney, stream: MoneyStream): Map<string, StreamAmount> {
   const result = new Map<string, StreamAmount>();
   const add = (line: Omit<MoneyLine, 'copper'> & { copper: number | null }) => {
     const prev = result.get(line.item) ?? ABSENT;
