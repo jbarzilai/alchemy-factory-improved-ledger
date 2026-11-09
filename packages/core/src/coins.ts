@@ -4,6 +4,10 @@ export type Coins = { gold: number; silver: number; copper: number };
 export const COPPER_PER_SILVER = 1_000;
 export const COPPER_PER_GOLD = 100_000;
 
+export const COIN_FACE_VALUE: ReadonlyMap<string, number> = new Map([
+  ['CopperCoin', 1], ['SilverCoin', COPPER_PER_SILVER], ['GoldCoin', COPPER_PER_GOLD],
+]);
+
 export function toCopper(c: Coins): number {
   return c.gold * COPPER_PER_GOLD + c.silver * COPPER_PER_SILVER + c.copper;
 }

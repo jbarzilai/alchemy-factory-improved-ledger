@@ -6,6 +6,10 @@ const categories: { key: ShopFilter; label: string }[] = [
   { key: 'beverage', label: 'Beverage' }, { key: 'jewelry', label: 'Jewelry' }, { key: 'relic', label: 'Relic' },
   { key: 'uncategorized', label: 'Uncategorized' },
 ];
+export function effectiveSelection(day: DayResponse, sel: DaySelection): DaySelection {
+  return !day.showCoins && (sel.stream === 'minted' || sel.stream === 'melted')
+    ? { stream: 'shop', category: 'all', item: null } : sel;
+}
 export function visibleLines(day: DayResponse, sel: DaySelection): DayItemLine[] {
   return day.items[sel.stream].filter(l => sel.stream !== 'shop' || sel.category === 'all' || l.category === sel.category);
 }
@@ -18,7 +22,7 @@ export function shopChips(day: DayResponse): { key: ShopFilter; label: string; c
     .map(c => ({ ...c, copper: linesTotal(visibleLines(day, { stream: 'shop', category: c.key, item: null })) }));
 }
 export function selectionTitle(sel: DaySelection): string {
-  return sel.stream === 'orders' ? 'Order Income' : sel.stream === 'purchasing' ? 'Purchasing Cost' : `Shop Income${sel.category === 'all' ? '' : ` · ${categories.find(c => c.key === sel.category)!.label}`}`;
+  return sel.stream === 'minted' ? 'Coins Minted' : sel.stream === 'melted' ? 'Coins Melted' : sel.stream === 'orders' ? 'Order Income' : sel.stream === 'purchasing' ? 'Purchasing Cost' : `Shop Income${sel.category === 'all' ? '' : ` · ${categories.find(c => c.key === sel.category)!.label}`}`;
 }
 export function unitPrice(units: number | null, copper: number | null): number | null { return units === null || units === 0 || copper === null ? null : copper / units; }
 export function flagSelection(flag: FlagView): DaySelection {

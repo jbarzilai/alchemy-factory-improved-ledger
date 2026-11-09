@@ -1,4 +1,4 @@
-import { SHOP_CATEGORIES, questLabel, shopByCategory, streamAmounts, type DayMoney, type Flag, type FlagStream } from '@af-ledger/core';
+import { SHOP_CATEGORIES, showCoinRows, questLabel, shopByCategory, streamAmounts, type DayMoney, type Flag, type MoneyStream } from '@af-ledger/core';
 import type { DayItemLine, DayResponse, SourceKey, Totals } from '../../shared/api';
 import type { LedgerModel } from '../state';
 
@@ -31,9 +31,9 @@ export function range(model: LedgerModel, from?: unknown, to?: unknown): { from:
   return { from: start, to: end };
 }
 export const totals = (money: DayMoney): Totals => ({
-  earnings: money.shop.total + money.orders.total, expenses: money.expenses,
-  profit: money.net - (money.quests?.total ?? 0), quests: money.quests?.total ?? 0,
-  gameProfit: money.net, questCount: money.questsSubmitted,
+  shop: money.shop.total,
+  quests: money.quests?.total ?? 0, minted: money.minted.total, melted: money.melted.total, beforeQuests: money.beforeQuests,
+  dailySummaryProfit: money.dailySummaryProfit, profit: money.profit, questCount: money.questsSubmitted,
 });
 export function sources(model: LedgerModel, money: DayMoney): Record<SourceKey, number> {
   const cats = shopByCategory(money.shop.lines, model.ledger.categories);
@@ -48,7 +48,7 @@ export function dayItems(model: LedgerModel, current: DayMoney, previous: DayMon
   const { ledger } = model;
   const descending = (a: number | null, b: number | null): number =>
     a === null ? (b === null ? 0 : 1) : b === null ? -1 : b - a;
-  const lines = (stream: FlagStream): DayItemLine[] => {
+  const lines = (stream: MoneyStream): DayItemLine[] => {
     const today = streamAmounts(current, stream);
     const yesterday = previous ? streamAmounts(previous, stream) : null;
     return [...new Set([...today.keys(), ...(yesterday?.keys() ?? []), ...flags.filter(f => f.stream === stream).map(f => f.item)])].map(item => {
@@ -64,7 +64,7 @@ export function dayItems(model: LedgerModel, current: DayMoney, previous: DayMon
     }).sort((a, b) => descending(a.copper, b.copper) || descending(a.previousCopper, b.previousCopper)
       || (a.item < b.item ? -1 : a.item > b.item ? 1 : 0));
   };
-  return { shop: lines('shop'), orders: lines('orders'), purchasing: lines('purchasing') };
+  return { shop: lines('shop'), orders: lines('orders'), purchasing: lines('purchasing'), minted: lines('minted'), melted: lines('melted') };
 }
 export function dayView(model: LedgerModel, day: number): DayResponse {
   const index = dayIndex(model, day);
@@ -83,6 +83,7 @@ export function dayView(model: LedgerModel, day: number): DayResponse {
     day, previousDay: index > 0 ? completedDays(model)[index - 1].displayDay : null,
     bonuses: { shopProfit: bonuses.shopProfit, categories: Object.fromEntries(SOURCE_CATEGORIES.map(label => [label.toLowerCase(), bonuses.categories[label]])) as DayResponse['bonuses']['categories'], orderIncomePct: bonuses.orderIncomePct, questRewards: bonuses.questRewards },
     items: dayItems(model, current, previous, model.flags[index]),
+    showCoins: showCoinRows(current, previous),
     totals: totals(current), previousTotals: previous ? totals(previous) : null,
     sources: [...SOURCE_CATEGORIES.map(label => ({ key: label.toLowerCase() as SourceKey, label })), { key: 'uncategorized' as const, label: 'Uncategorized' }, { key: 'orders' as const, label: 'Order Income' }]
       .filter(({ key }) => key !== 'uncategorized' || currentSources[key] !== 0 || (previousSources?.[key] ?? 0) !== 0)

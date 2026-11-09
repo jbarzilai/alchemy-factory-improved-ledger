@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { dayFlags, DEFAULT_FLAG_SETTINGS } from '../src/flags';
+import { dayFlags, DEFAULT_FLAG_SETTINGS, streamAmounts } from '../src/flags';
 import { dayMoney, type DayMoney } from '../src/ledger';
 import { loadGameItems, loadQuestSkills } from '../src/config';
 import { questBonus } from '../src/quests';
@@ -16,7 +16,8 @@ function day(input: { shop?: Lines; orders?: Lines; purchasing?: Lines; unpriced
   };
   const earnings = shop.total + orders.total + (input.quests ?? 0);
   return { shop, orders, purchasing, quests: { total: input.quests ?? 0, bonus: 1, lines: [], unpriced: [] },
-    questsSubmitted: 0, earnings, expenses: purchasing.total, net: earnings - purchasing.total };
+    minted: stream(), melted: stream(), beforeQuests: shop.total + orders.total - purchasing.total,
+    profit: earnings - purchasing.total, questsSubmitted: 0, earnings, expenses: purchasing.total, dailySummaryProfit: earnings - purchasing.total };
 }
 const history = (units: number[]) => units.map(n => day({ shop: { X: [n, n * 10] } }));
 const baseline = (d: DayMoney) => [d, d, d];
@@ -197,4 +198,18 @@ it('group switches skip only their streams and keep the other baselines', () => 
   expect(new Set(all.map(f => f.stream))).toEqual(new Set(['shop', 'orders', 'purchasing']));
   expect(dayFlags(days, 3, { ...DEFAULT_FLAG_SETTINGS, purchaseFlags: false })).toEqual(all.filter(f => f.stream !== 'purchasing'));
   expect(dayFlags(days, 3, { ...DEFAULT_FLAG_SETTINGS, incomeFlags: false })).toEqual(all.filter(f => f.stream === 'purchasing'));
+});
+
+it('keeps coins out of flags and income baselines while exposing their item amounts', () => {
+  const days = [...baseline(day({ shop: { X: [100, 1000000] }, purchasing: { P: [100, 100000] } })),
+    day({ shop: { X: [70, 700000] }, purchasing: { P: [175, 175000] } })];
+  const coins = days.map((d, i) => ({ ...d,
+    minted: { total: (i + 1) * 100000000, lines: [{ item: 'GoldCoin', count: (i + 1) * 1000, copper: (i + 1) * 100000000 }] },
+    melted: { total: 100000000, lines: [{ item: 'SilverCoin', count: 100000, copper: 100000000 }] },
+    profit: d.dailySummaryProfit + i * 100000000,
+  }));
+  expect(dayFlags(days, 3)).toHaveLength(2);
+  expect(dayFlags(coins, 3)).toEqual(dayFlags(days, 3));
+  expect(streamAmounts(coins[0], 'minted')).toEqual(new Map([['GoldCoin', { count: 1000, copper: 100000000 }]]));
+  expect(streamAmounts(coins[0], 'melted')).toEqual(new Map([['SilverCoin', { count: 100000, copper: 100000000 }]]));
 });

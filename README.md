@@ -1,7 +1,8 @@
 # af-ledger
 
 af-ledger reads Alchemy Factory saves and displays daily Earnings, Expenses and Profit,
-with comparisons, category breakdowns and item movers. Day numbers match the game UI.
+with comparisons, category breakdowns and item movers. Profit includes Coins Minted and
+subtracts Coins Melted at face value, as in the game's Ledger tab. Day numbers match the game UI.
 
 **Saves are read-only input.** af-ledger never modifies a save or writes into the game's
 saves folder. Parsing happens in memory; local caches and test copies live in the repository's `.cache/`.
@@ -29,8 +30,8 @@ Opening it from another device on your network is not supported.
 ### Pages
 
 Today shows a completed day's money sum, Quest Rewards and flags. History compares
-Profit (quests included), income and purchasing over 3 days, 7 days or a custom
-range, with a whole-save Profit heatmap and events. Item economics shows Shop
+Profit (quests and coins included, as in the game's Ledger tab), income and costs over
+3 days, 7 days or a custom range, with a whole-save Profit heatmap and events. Item economics shows Shop
 Income by category and item, sortable sales, rising and falling income per day,
 and each item's daily sales and flags.
 
@@ -115,6 +116,12 @@ table (default 10); Purchasing shows every changed item. Without a previous day,
 show up to N top items and Purchasing shows all items.
 Items use in-game English names, with unknown IDs shown as-is.
 
+Earnings = Shop Income + Order Income + Quest Rewards; Expenses = Purchasing Cost.
+Daily Summary Profit = Earnings − Expenses. Profit adds Coins Minted and subtracts Coins Melted,
+at face value (1c, 1,000c and 100,000c for copper, silver and gold coins).
+The Bottom line shows Daily Summary Profit and both coin rows when the selected day or its
+previous day has coin activity, including a zero when activity stops.
+
 ```sh
 af-ledger day 199 --save fixtures/saves/SaveGame3.sav --unit copper
 ```
@@ -158,13 +165,19 @@ be combined with `--json`, and output inside save folders is refused.
 Both ledger commands support `--unit mixed|gold|silver|copper` and `--json` (copper values).
 `day --json` retains internal IDs and adds a `names` lookup for the current and previous day's
 items and quests, plus a `bonuses` object with whole percentages (unknown bonuses are null).
-`days --json` remains an array of daily totals.
+Its money objects rename `net` to `dailySummaryProfit` and add `minted` and `melted` (each
+with `total` and per-item `lines`), `beforeQuests` (Shop Income + Order Income − Purchasing Cost)
+and `profit` (`dailySummaryProfit + minted.total − melted.total`).
+`days --json` remains an array of daily totals with fields `day`, `partial`, `earnings`, `expenses`,
+`minted`, `melted`, `dailySummaryProfit`, `profit`, `unpricedPurchases` and `unpricedQuests`.
+Here `minted` and `melted` are numeric totals. Its `profit` now includes coins; the old value is
+available as `dailySummaryProfit`. Earnings and Expenses retain their Daily Summary meaning.
 
 In mixed mode (the default) each group of amounts gets one unit, picked from its largest amount:
 
 | Amounts | Unit picked from | Gold from | Silver from |
 | --- | --- | --- | --- |
-| A `day` report | the larger of that day's and the previous day's Earnings | 1,000,000c | 10,000c |
+| A `day` report | the largest absolute Earnings from that day and the previous day; with coin rows, also Coins Minted, Coins Melted and Profit | 1,000,000c | 10,000c |
 | A `days` column | that column's largest absolute value | 1,000,000c | 10,000c |
 | A unit price | that price | 100,000c | 1,000c |
 

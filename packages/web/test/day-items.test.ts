@@ -1,7 +1,7 @@
 import { beforeAll, expect, test } from 'vitest';
 import { DEFAULT_FLAG_SETTINGS } from '@af-ledger/core';
 import { DEFAULT_SELECTION, type DaySelection } from '../client/route';
-import { visibleLines, expandedItem, linesTotal, shopChips, selectionTitle, unitPrice, flagSelection, flagSentence, flagKindLabel, noFlagsText } from '../client/dayItems';
+import { effectiveSelection, visibleLines, expandedItem, linesTotal, shopChips, selectionTitle, unitPrice, flagSelection, flagSentence, flagKindLabel, noFlagsText } from '../client/dayItems';
 import { dayView } from '../server/views/day';
 import { fixtureCache } from './helpers';
 import type { DayItemLine, DayResponse, FlagView } from '../shared/api';
@@ -49,4 +49,20 @@ test('an empty Flags panel says flags are off only when both groups are off', ()
   expect(noFlagsText(199, s)).toBe('No flags for Day 199.');
   expect(noFlagsText(199, { ...s, incomeFlags: false })).toBe('No flags for Day 199.');
   expect(noFlagsText(199, { ...s, purchaseFlags: false })).toBe('No flags for Day 199.');
+});
+
+
+test('coin lists, titles and inactive-day selection preserve the route for paging', async () => {
+  const model = (await fixtureCache().get()).model;
+  const active = dayView(model, 178), inactive = dayView(model, 144);
+  for (const stream of ['minted', 'melted'] as const) {
+    const selection = sel({ stream, item: 'CopperCoin' });
+    expect(selectionTitle(selection)).toBe(stream === 'minted' ? 'Coins Minted' : 'Coins Melted');
+    expect(visibleLines(active, selection)).toEqual(active.items[stream]);
+    expect(effectiveSelection(inactive, selection)).toEqual(DEFAULT_SELECTION);
+    expect(effectiveSelection(active, selection)).toBe(selection);
+    expect(selection).toEqual(sel({ stream, item: 'CopperCoin' }));
+  }
+  expect(active.items.melted[0]).toMatchObject({ item: 'CopperCoin', units: 84000, copper: 84000 });
+  expect(effectiveSelection(inactive, DEFAULT_SELECTION)).toBe(DEFAULT_SELECTION);
 });

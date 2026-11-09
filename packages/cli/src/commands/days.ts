@@ -5,6 +5,10 @@ import { reportUnit, money, oneLine, table, type Unit } from '../format';
 import { ledgerFailure, loadLedger, type Ledger } from '../load';
 import type { Command } from '../run';
 
+export type DaysRow = { day: number; partial: boolean; earnings: number; expenses: number; minted: number; melted: number;
+  dailySummaryProfit: number; profit: number;
+  unpricedPurchases: number; unpricedQuests: number };
+
 // --last limits completed days; --partial appends today afterwards.
 export function createDaysCommand(extract?: ExtractOptions): Command {
   return {
@@ -35,10 +39,11 @@ export function createDaysCommand(extract?: ExtractOptions): Command {
       let selected = ordered.filter((d) => d.complete);
       if (last !== undefined) selected = selected.slice(-last);
       if (values.partial) selected.push(...ordered.filter((d) => !d.complete));
-      const rows = selected.map((day) => {
+      const rows: DaysRow[] = selected.map((day) => {
         const m = ledger.money(day);
         return {
-          day: day.displayDay, partial: !day.complete, earnings: m.earnings, expenses: m.expenses, profit: m.net,
+          day: day.displayDay, partial: !day.complete, earnings: m.earnings, expenses: m.expenses,
+          minted: m.minted.total, melted: m.melted.total, dailySummaryProfit: m.dailySummaryProfit, profit: m.profit,
           unpricedPurchases: m.purchasing.unpriced.length, unpricedQuests: m.quests?.unpriced.length ?? 0,
         };
       });

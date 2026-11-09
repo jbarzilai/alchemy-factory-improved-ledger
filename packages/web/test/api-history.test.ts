@@ -22,11 +22,11 @@ it('sums Days 170–199 and includes whole-save heatmap and events', async () =>
   expect(result).toEqual(historyView(model, 170, 199));
   expect(result.days).toHaveLength(30);
   const sum = (get: (d: HistoryResponse['days'][number]) => number) => result.days.reduce((n, d) => n + get(d), 0);
-  expect(sum(d => d.profit)).toBe(225192651); expect(sum(d => d.quests)).toBe(11684776); expect(sum(d => d.gameProfit)).toBe(236877427);
+  expect(sum(d => d.quests)).toBe(11684776); expect(sum(d => d.profit)).toBe(236053827);
   expect(result.days.filter(d => d.quests > 0)).toHaveLength(18);
   expect(sum(d => Object.entries(d.sources).filter(([key]) => key !== 'orders').reduce((n, [, v]) => n + v, 0))).toBe(238470911);
   expect(sum(d => d.sources.orders)).toBe(149336000); expect(sum(d => d.purchasing)).toBe(162614260);
-  expect(result.allDays).toHaveLength(199); expect(result.allDays[198]).toEqual({ day: 199, gameProfit: 5771730 });
+  expect(result.allDays).toHaveLength(199); expect(result.allDays[198]).toEqual({ day: 199, profit: 5771730 });
   for (const event of [
     { day: 50, kind: 'shop-profit', text: 'Shop Profit 110%' }, { day: 97, kind: 'shop-profit', text: 'Shop Profit 120%' },
     { day: 52, kind: 'first-order', item: 'Bandage' }, { day: 133, kind: 'first-sale', item: 'Mars' },
@@ -93,4 +93,20 @@ it('skips unknown category dates, merges consecutive order rises and requires lo
   expect(historyView(short, 1, 6).events.filter(e => e.kind === 'stopped')).toEqual([]);
   const running = { ...synthetic, days: days.slice(0, 7), ledger: { ...synthetic.ledger, snapshot: { ...synthetic.ledger.snapshot, days: rawDays.slice(0, 7) } } };
   expect(historyView(running, 1, 7).events.filter(e => e.kind === 'stopped')).toHaveLength(1);
+});
+
+it('reconciles History Profit against raw CopperCoin consumption', () => {
+  const history = historyView(model, 170, 199);
+  const dailySummary = model.days.slice(169, 199).reduce((sum, day) => sum + day.dailySummaryProfit, 0);
+  const consumed = model.ledger.snapshot.days
+    .filter(day => day.displayDay >= 170 && day.displayDay <= 179)
+    .flatMap(day => day.items).filter(item => item.item === 'CopperCoin')
+    .reduce((sum, item) => sum + item.consumedCount, 0);
+  expect(consumed).toBeGreaterThan(0);
+  expect(history.days.reduce((sum, day) => sum + day.profit, 0) - dailySummary).toBe(-consumed);
+});
+
+it('shows History coins only for activity within the requested range', () => {
+  expect(historyView(model, 170, 199).showCoins).toBe(true);
+  expect(historyView(model, 180, 199).showCoins).toBe(false);
 });

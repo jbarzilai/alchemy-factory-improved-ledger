@@ -1,5 +1,5 @@
 import type { SourceKey } from '../shared/api';
-export type DayStream = 'shop' | 'orders' | 'purchasing';
+export type DayStream = 'shop' | 'orders' | 'purchasing' | 'minted' | 'melted';
 export type ShopFilter = Exclude<SourceKey, 'orders'> | 'all';
 export type DaySelection = { stream: DayStream; category: ShopFilter; item: string | null };
 export const DEFAULT_SELECTION: DaySelection = { stream: 'shop', category: 'all', item: null };
@@ -22,7 +22,7 @@ export function parseRoute(hash: string): Route {
   if (page === 'today') {
     const single = (key: string) => query.getAll(key).length === 1 ? query.get(key) : null;
     const value = single('items');
-    const stream: DayStream = value === 'orders' || value === 'purchasing' ? value : 'shop';
+    const stream: DayStream = value === 'orders' || value === 'purchasing' || value === 'minted' || value === 'melted' ? value : 'shop';
     const cat = single('cat');
     const category: ShopFilter = stream === 'shop' && ['sundries', 'potion', 'beverage', 'jewelry', 'relic', 'uncategorized'].includes(cat ?? '') ? cat as ShopFilter : 'all';
     return { page, day: day === undefined ? null : positive(day), items: { stream, category, item: single('item') || null } };

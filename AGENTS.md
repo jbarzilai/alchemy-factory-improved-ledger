@@ -22,6 +22,9 @@
 - Golden tests: fixtures/day199.expected.json and day100.expected.json must pass against
   SaveGame3.sav (save "1 Point Oh") with both kdec builds. The save is committed at `fixtures/saves/` (never modify
   it); its SHA-256 is pinned in `fixtures/save-fixture.json`.
+  Neither golden day has coin activity. The second committed save, `fixtures/saves/Sand-SaveGame1.sav`,
+  is pinned in `fixtures/save-fixture-sand.json` and covers minting in one core test file
+  (`packages/core/test/coins-fixture.test.ts`). Never modify either save.
 - Commands: `npm run build:native` (kdec for Linux, needs build-essential; also `kdec.exe` when g++-mingw-w64-x86-64
   is installed, otherwise the committed one is kept. After changing the native source, rebuild with mingw and commit
   `kdec.exe`), `npm run bootstrap`, `npm test`, `npm run typecheck`.
@@ -30,7 +33,9 @@
   `AF_SKIP_WIN=1 npm test` skips the kdec.exe interop cross-check. Inside the Codex sandbox, tests that
   spawn Node, use WSL interop or listen on a socket skip themselves (`inCodexSandbox` in `packages/core/test/helpers/sandbox.ts`).
   Golden tests run with `kdec` in WSL only until a Windows test run (`test:win`) exists.
-- Quest rewards are not stored in saves; Day 199's golden net excludes them (Day 100 had none).
+- Quest rewards are not stored in saves. The golden Daily Summary Profit includes them as the game shows them; the
+  tests check it with recomputed quest rewards, and without quest pricing against the golden figure minus its quests
+  (Day 100 had none).
 - See [README.md](README.md) for the Windows quick start, configuration and CLI usage, and
   [CONTRIBUTING.md](CONTRIBUTING.md) for the development setup and tests.
 - **Maintainer docs (private).** The maintainer keeps plans and agent notes in a separate private repo, checked out next

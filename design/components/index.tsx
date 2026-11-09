@@ -249,7 +249,7 @@ export function NavTabs({ items, active, onSelect, className }: NavTabsProps) {
 }
 
 // ---------------------------------------------------------------- data
-export type SeriesKey = 'sundries' | 'potion' | 'beverage' | 'jewelry' | 'relic' | 'orders' | 'quests' | 'purchasing';
+export type SeriesKey = 'sundries' | 'potion' | 'beverage' | 'jewelry' | 'relic' | 'orders' | 'quests' | 'minted' | 'purchasing' | 'melted';
 
 /** Fixed entity → colour. The order is the validated stack order; never re-cycle colours by rank. */
 export const SERIES: { key: SeriesKey; label: string; bg: string; token: string }[] = [
@@ -260,7 +260,9 @@ export const SERIES: { key: SeriesKey; label: string; bg: string; token: string 
   { key: 'relic', label: 'Relic', bg: 'bg-relic', token: '--series-relic' },
   { key: 'orders', label: 'Orders', bg: 'bg-orders', token: '--series-orders' },
   { key: 'quests', label: 'Quests', bg: 'bg-quests', token: '--series-quests' },
+  { key: 'minted', label: 'Coins Minted', bg: 'bg-minted', token: '--series-minted' },
   { key: 'purchasing', label: 'Purchasing', bg: 'bg-purchasing', token: '--series-purchasing' },
+  { key: 'melted', label: 'Coins Melted', bg: 'bg-melted', token: '--series-melted' },
 ];
 const seriesOf = (k: SeriesKey) => SERIES.find((s) => s.key === k)!;
 
@@ -312,7 +314,9 @@ const ICON_TINT: Record<string, string> = {
   relic: 'bg-relic/25',
   orders: 'bg-orders/25',
   quests: 'bg-quests/25',
+  minted: 'bg-minted/25',
   purchasing: 'bg-purchasing/25',
+  melted: 'bg-melted/25',
 };
 
 export interface ItemLabelProps {

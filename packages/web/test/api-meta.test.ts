@@ -12,7 +12,7 @@ import { fixtureCache, fixtureLedger, saveDir } from './helpers';
 let app: FastifyInstance;
 beforeAll(async () => { app = await buildApp({ cache: fixtureCache(), icons: emptyIconStore }); });
 afterAll(async () => { await app.close(); });
-it('reports the fixture using display days, copper and quest-inclusive gameProfit', async () => {
+it('reports the fixture using display days, copper and coin-inclusive Profit', async () => {
   const response = await app.inject('/api/meta');
   expect(response.statusCode).toBe(200);
   const meta = response.json<MetaResponse>();
@@ -24,7 +24,7 @@ it('reports the fixture using display days, copper and quest-inclusive gameProfi
   expect(response.body).not.toContain(JSON.stringify(path.dirname(fixtureSavePath())).slice(1, -1));
   expect(Number.isNaN(Date.parse(meta.savedAt))).toBe(false);
   expect(meta.days).toHaveLength(199);
-  expect(meta.days[198]).toEqual({ day: 199, profit: 5176205, quests: 595525, gameProfit: 5771730, questCount: 2, flagCount: 3 });
+  expect(meta.days[198]).toEqual({ day: 199, quests: 595525, profit: 5771730, questCount: 2, flagCount: 3 });
   expect(meta.days[189].flagCount).toBe(4);
 });
 it('returns 503 for an incomplete first read', async () => {
@@ -85,4 +85,10 @@ it('returns the previous meta with stale true while a changed save is incomplete
     expect(response.statusCode).toBe(200);
     expect(response.json()).toEqual({ ...good, stale: true });
   } finally { await staleApp.close(); temp.cleanup(); }
+});
+
+it('uses core Profit for a melting day in the strip', async () => {
+  const meta = (await app.inject('/api/meta')).json<MetaResponse>();
+  const { model } = await fixtureCache().get();
+  expect(meta.days[177].profit).toBe(model.days[177].dailySummaryProfit - 84000);
 });

@@ -24,7 +24,9 @@
   --series-relic: #3987e5;
   --series-orders: #d55181;
   --series-quests: #8a9a1c;
+  --series-minted: #2bb3c0;
   --series-purchasing: #8f86a0;
+  --series-melted: #c2b49c;
   --elevation-popover: 0 12px 30px rgba(0, 0, 0, 0.35);
   --elevation-dialog: 0 20px 60px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
@@ -54,7 +56,9 @@
   --series-relic: #2a78d6;
   --series-orders: #e87ba4;
   --series-quests: #7f9400;
+  --series-minted: #1a9fb0;
   --series-purchasing: #8a7f95;
+  --series-melted: #5f5a52;
   --elevation-popover: 0 12px 30px rgba(60, 40, 20, 0.14);
   --elevation-dialog: 0 20px 60px rgba(60, 40, 20, 0.22);
   color-scheme: light;

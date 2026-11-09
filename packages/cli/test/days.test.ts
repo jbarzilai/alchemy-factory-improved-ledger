@@ -5,7 +5,7 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { dayMoney, type DayLedger } from '@af-ledger/core';
 import * as loader from '../src/load';
-import { createDaysCommand } from '../src/commands/days';
+import { createDaysCommand, type DaysRow } from '../src/commands/days';
 import { run } from '../src/run';
 import { capture, makeSaveDirs } from './helpers';
 
@@ -28,13 +28,12 @@ async function invoke(args: string[]) {
   return { code, out: c.out(), err: c.err() };
 }
 
-type Row = { day: number; partial: boolean; earnings: number; expenses: number; profit: number; unpricedPurchases: number; unpricedQuests: number };
-function json(out: string): Row[] {
+function json(out: string): DaysRow[] {
   expect(out.trim().split('\n')).toHaveLength(1);
   const rows = JSON.parse(out);
   expect(Array.isArray(rows)).toBe(true);
   for (const row of rows) expect(Object.keys(row).sort()).toEqual([
-    'day', 'partial', 'earnings', 'expenses', 'profit', 'unpricedPurchases', 'unpricedQuests',
+    'day', 'partial', 'earnings', 'expenses', 'minted', 'melted', 'dailySummaryProfit', 'profit', 'unpricedPurchases', 'unpricedQuests',
   ].sort());
   return rows;
 }
@@ -50,12 +49,20 @@ describe('days history', () => {
     expect(rows).toHaveLength(completed.length);
     expect(rows.map((r) => r.day)).toEqual(completed.map((d) => d.displayDay).sort((a, b) => a - b));
     expect(rows.every((r) => !r.partial)).toBe(true);
-    expect(rows.find((r) => r.day === 100)).toMatchObject({ earnings: 1289241, expenses: 979800, profit: 309441 });
+    expect(rows.find((r) => r.day === 100)).toMatchObject({ earnings: 1289241, expenses: 979800, dailySummaryProfit: 309441 });
+    const melting = rows.find((r) => r.day === 178)!;
+    expect(melting).toMatchObject({ minted: 0, melted: 84000 });
+    expect(melting.profit).toBe(melting.dailySummaryProfit - 84000);
+    const last = rows.find((r) => r.day === 199)!;
+    expect(last.profit).toBe(last.dailySummaryProfit);
     const daily = capture({ AF_SAVE_DIR: dirs.saves });
     expect(await run(['day', '199', '--json'], daily.io), daily.err()).toBe(0);
     expect(rows.find((r) => r.day === 199)!.earnings).toBe(JSON.parse(daily.out()).money.earnings);
     const text = await invoke([]);
     expect(text.code, text.err).toBe(0);
+    expect(text.out).toMatch(/^\s*Day\s+Earnings\s+Expenses\s+Profit\s+Flags$/m);
+    const copper = textRows((await invoke(['--unit', 'copper'])).out);
+    expect(copper[177].trim().split(/\s+/)[3]).toBe(`${melting.profit.toLocaleString('en-US')}c`);
     const rendered = textRows(text.out);
     for (const row of rows) {
       const day = completed.find((d) => d.displayDay === row.day)!;
@@ -153,7 +160,8 @@ describe('days history', () => {
     const snapshot = { ...ledger.snapshot, days: ledger.snapshot.days.slice(0, 2) };
     vi.spyOn(loader, 'loadLedger').mockResolvedValue({ ...ledger, snapshot, money: (day) => ({
       ...ledger.money(day), earnings: day.displayDay === 1 ? 10000 : 9999,
-      expenses: day.displayDay === 1 ? 2000000 : 0, net: day.displayDay === 1 ? -1990000 : 9999,
+      expenses: day.displayDay === 1 ? 2000000 : 0, dailySummaryProfit: day.displayDay === 1 ? -1990000 : 9999,
+      profit: day.displayDay === 1 ? -1990000 : 9999,
     }) });
     const text = await invoke([]);
     const rows = textRows(text.out);

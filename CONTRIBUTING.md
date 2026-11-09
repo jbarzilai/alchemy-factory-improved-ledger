@@ -30,6 +30,14 @@ Run `npm test` and `npm run typecheck`.
 
 The golden tests use the author's save `fixtures/saves/SaveGame3.sav` (committed; SHA-256 pinned in
 `fixtures/save-fixture.json`; never modify it) and check it against numbers transcribed from the
-in-game ledger. Inside WSL, `npm test` also checks that the committed `kdec.exe` decodes exactly like
+in-game Daily Summary. Neither golden day (100, 199) has coin activity, so Profit equals
+Daily Summary Profit. Quest rewards are not stored in saves: the golden Daily Summary Profit includes them,
+and the tests check it with recomputed quest rewards (Day 100 had none).
+
+There are two committed saves. The second, `fixtures/saves/Sand-SaveGame1.sav`, is pinned in
+`fixtures/save-fixture-sand.json` and covers minting all three coins on UI Day 24 in one core test
+file (`packages/core/test/coins-fixture.test.ts`). Never modify either save.
+
+Inside WSL, `npm test` also checks that the committed `kdec.exe` decodes exactly like
 the Linux `kdec`; `AF_SKIP_WIN=1` skips that check. With mingw installed, it also checks that
 `kdec.exe` equals a fresh build of the source.

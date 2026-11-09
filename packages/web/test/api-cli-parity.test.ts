@@ -16,7 +16,9 @@ it('matches the in-process CLI for every completed fixture day using the same lo
     expect(err).toBe('');
     const cli = JSON.parse(out) as { money: DayMoney };
     const api = dayView(model, day.displayDay), money = cli.money;
-    expect(api.totals, `Day ${day.displayDay}`).toEqual({ earnings: money.shop.total + money.orders.total, expenses: money.purchasing.total, profit: money.net - (money.quests?.total ?? 0), quests: money.quests?.total ?? 0, gameProfit: money.net, questCount: money.questsSubmitted });
+    expect(api.totals, `Day ${day.displayDay}`).toEqual({ shop: money.shop.total, quests: money.quests?.total ?? 0, minted: money.minted.total, melted: money.melted.total, profit: money.profit, beforeQuests: money.beforeQuests, dailySummaryProfit: money.dailySummaryProfit, questCount: money.questsSubmitted });
+    expect(api.totals.profit).toBe(api.totals.dailySummaryProfit + api.totals.minted - api.totals.melted);
+    expect(api.totals.beforeQuests + api.totals.quests).toBe(api.totals.dailySummaryProfit);
     const cats = shopByCategory(money.shop.lines, model.ledger.categories);
     for (const source of api.sources) expect(source.copper).toBe(source.key === 'orders' ? money.orders.total : cats.get(source.label) ?? 0);
     expect(api.purchasing.unpriced.map(({ item, count }) => ({ item, count }))).toEqual(money.purchasing.unpriced);
