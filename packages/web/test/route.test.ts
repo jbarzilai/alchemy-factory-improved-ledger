@@ -42,3 +42,9 @@ test.each([
   ['?items=orders&items=shop', sel({})],
   ['?item=', sel({})],
 ])('bad today query %s falls back per field', (query, items) => expect(parseRoute(`#/today${query}`)).toEqual({ page: 'today', day: null, items }));
+
+
+test.each(['minted', 'melted'] as const)('round trips coin stream %s', stream => {
+  const route: Route = { page: 'today', day: 178, items: sel({ stream, item: 'CopperCoin' }) };
+  expect(parseRoute(routeHash(route))).toEqual(route);
+});

@@ -4,6 +4,7 @@ import type { DayResponse, MetaResponse } from '../../shared/api';
 import { DayStrip } from '../parts/DayStrip';
 import { SumBlock } from '../parts/SumBlock';
 import { CategoryTable } from '../parts/CategoryTable';
+import { effectiveSelection } from '../dayItems';
 import { DayItems } from '../parts/DayItems';
 import { routeHash, type Route, type DaySelection } from '../route';
 import { navigateRange } from '../navigation';
@@ -13,6 +14,7 @@ import { BonusesPanel } from '../parts/BonusesPanel';
 import { PageNotes } from '../parts/PageNotes';
 export function TodayPage({ meta, day, route, onCustomizeFlags }: { meta: MetaResponse; day: DayResponse; route: Extract<Route, { page: 'today' }>; onCustomizeFlags: () => void }) {
   const [bonusesOpen, setBonusesOpen] = useState(false);
+  const selection = effectiveSelection(day, route.items);
   const onChange = (items: DaySelection) => navigateRange({ ...route, items }, true);
   function go(n: number) { location.hash = routeHash({ ...route, day: n }); }
   // The API also supplies the quest-bonus disclaimer; that belongs in PageNotes.
@@ -32,11 +34,11 @@ export function TodayPage({ meta, day, route, onCustomizeFlags }: { meta: MetaRe
       {bonusesOpen && <BonusesPanel day={day} />}
     </section>
     <div className="today-grid"><div className="flex min-w-0 flex-col gap-6">
-      <SumBlock day={day} selection={route.items} onChange={onChange} />
+      <SumBlock day={day} selection={selection} onChange={onChange} />
       {notices.map(note => <Notice key={note} tone="missing">{note}</Notice>)}
-      <CategoryTable day={day} selection={route.items} onChange={onChange} />
-      <DayItems day={day} meta={meta} selection={route.items} onChange={onChange} />
-    </div><div className="flex min-w-0 flex-col gap-6"><QuestBox day={day} /><FlagList day={day} meta={meta} route={route} onCustomizeFlags={onCustomizeFlags} /></div></div>
-    <PageNotes meta={meta} day={day} />
+      <CategoryTable day={day} selection={selection} onChange={onChange} />
+      <DayItems day={day} meta={meta} selection={selection} onChange={onChange} />
+    </div><div className="flex min-w-0 flex-col gap-6"><QuestBox day={day} /><FlagList day={day} meta={meta} route={{ ...route, items: selection }} onCustomizeFlags={onCustomizeFlags} /></div></div>
+    <PageNotes meta={meta} day={day} coins={day.showCoins} />
   </>;
 }

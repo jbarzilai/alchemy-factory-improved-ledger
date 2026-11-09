@@ -10,9 +10,20 @@ export function summaryLines(day: DayResponse): SummaryLine[] {
     { label: 'Shop Income', copper: t.shop, previous: p?.shop ?? null, symbol: '', stream: 'shop' },
     { label: 'Order Income', copper: orders.copper, previous: orders.previous, symbol: '+', series: 'orders', stream: 'orders' },
     { label: 'Purchasing Cost', copper: day.purchasing.copper, previous: day.purchasing.previous, symbol: '−', series: 'purchasing', stream: 'purchasing', expense: true },
-    { label: 'Subtotal before quests', copper: t.beforeQuests, previous: p?.beforeQuests ?? null, symbol: '=', subtotal: true },
     { label: 'Quest Rewards', copper: t.quests, previous: p?.quests ?? null, symbol: '+', series: 'quests', quest: true },
+    ...(day.showCoins ? [
+      { label: 'Coins Minted', copper: t.minted, previous: p?.minted ?? null, symbol: '+', series: 'minted', stream: 'minted' },
+      { label: 'Coins Melted', copper: t.melted, previous: p?.melted ?? null, symbol: '−', series: 'melted', stream: 'melted', expense: true },
+    ] satisfies SummaryLine[] : []),
     { label: 'Profit', copper: t.profit, previous: p?.profit ?? null, symbol: '=', final: true },
+  ];
+}
+
+export function subtotalLines(day: DayResponse): SummaryLine[] {
+  const t = day.totals, p = day.previousTotals;
+  return [
+    { label: 'Subtotal before quests', copper: t.beforeQuests, previous: p?.beforeQuests ?? null, symbol: '=', subtotal: true },
+    { label: 'Daily Summary Profit', copper: t.dailySummaryProfit, previous: p?.dailySummaryProfit ?? null, symbol: '=', subtotal: true },
   ];
 }
 
