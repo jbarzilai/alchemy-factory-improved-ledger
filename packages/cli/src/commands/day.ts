@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { exportsDir, exportSlug, outputBlocked, writePng } from '../png';
 import {
-  SHOP_CATEGORIES, shopByCategory,
+  SHOP_CATEGORIES, shopByCategory, showCoinRows,
   type DayMoney, type ExtractOptions,
 } from '@af-ledger/core';
 import { bar, reportUnit, delta, money, oneLine, percentage, priceText, questLabel, signed, table, type Unit } from '../format';
@@ -55,7 +55,8 @@ function namesFor(ledger: Ledger, days: (DayMoney | null)[]): Record<string, str
   const entries: [string, string][] = [];
   for (const day of days) {
     if (!day) continue;
-    for (const line of [...day.shop.lines, ...day.orders.lines, ...day.purchasing.lines, ...day.purchasing.unpriced]) {
+    for (const line of [...day.shop.lines, ...day.orders.lines, ...day.purchasing.lines, ...day.purchasing.unpriced,
+      ...day.minted.lines, ...day.melted.lines]) {
       entries.push([line.item, ledger.name(line.item)]);
     }
     for (const q of [...(day.quests?.lines ?? []), ...(day.quests?.unpriced ?? [])]) {
@@ -97,7 +98,7 @@ function render(
   // 'auto': spending rows invert; 'profit': every number is already a profit effect; 'spend': the whole table is spending.
   const signs = (text: string, mode: 'auto' | 'profit' | 'spend' = 'auto') => color
     ? text.split('\n').map((line) => paint(line,
-      mode === 'spend' || (mode === 'auto' && /^(Expenses|Purchasing)\b/.test(line)))).join('\n') : text;
+      mode === 'spend' || (mode === 'auto' && /^(Expenses|Purchasing|Coins Melted)\b/.test(line)))).join('\n') : text;
   const sections: string[] = [
     `${heading(`${ledger.snapshot.saveName} — Day ${day}${partial ? ' (in progress)' : ''}`)}\n` +
     `${ledger.save.file}\nSaved: ${ledger.snapshot.savedAt.toLocaleString()}`,
@@ -110,11 +111,16 @@ function render(
   ], ['l', 'l'])}`);
   // The larger of today's and yesterday's Earnings, so an in-progress day doesn't drop to copper.
   const amountUnit = reportUnit(Math.max(Math.abs(current.earnings), Math.abs(previous?.earnings ?? 0)), unit);
-  const totals = [
+  const totals: (readonly [string, number, number | null])[] = [
     ['Earnings', current.earnings, previous?.earnings ?? null],
     ['Expenses', current.expenses, previous?.expenses ?? null],
-    ['Profit', current.dailySummaryProfit, previous?.dailySummaryProfit ?? null],
-  ] as const;
+    ...(showCoinRows(current, previous) ? [
+      ['Daily Summary Profit', current.dailySummaryProfit, previous?.dailySummaryProfit ?? null],
+      ['Coins Minted', current.minted.total, previous?.minted.total ?? null],
+      ['Coins Melted', current.melted.total, previous?.melted.total ?? null],
+    ] as const : []),
+    ['Profit', current.profit, previous?.profit ?? null],
+  ];
   sections.push(`${heading('Bottom line')}\n${signs(table([
     ['', 'Amount', 'Previous', 'Change', 'Change %'],
     ...totals.map(([name, cur, prev]) => {

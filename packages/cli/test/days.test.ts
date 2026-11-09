@@ -33,7 +33,7 @@ function json(out: string): DaysRow[] {
   const rows = JSON.parse(out);
   expect(Array.isArray(rows)).toBe(true);
   for (const row of rows) expect(Object.keys(row).sort()).toEqual([
-    'day', 'partial', 'earnings', 'expenses', 'dailySummaryProfit', 'unpricedPurchases', 'unpricedQuests',
+    'day', 'partial', 'earnings', 'expenses', 'minted', 'melted', 'dailySummaryProfit', 'profit', 'unpricedPurchases', 'unpricedQuests',
   ].sort());
   return rows;
 }
@@ -50,11 +50,19 @@ describe('days history', () => {
     expect(rows.map((r) => r.day)).toEqual(completed.map((d) => d.displayDay).sort((a, b) => a - b));
     expect(rows.every((r) => !r.partial)).toBe(true);
     expect(rows.find((r) => r.day === 100)).toMatchObject({ earnings: 1289241, expenses: 979800, dailySummaryProfit: 309441 });
+    const melting = rows.find((r) => r.day === 178)!;
+    expect(melting).toMatchObject({ minted: 0, melted: 84000 });
+    expect(melting.profit).toBe(melting.dailySummaryProfit - 84000);
+    const last = rows.find((r) => r.day === 199)!;
+    expect(last.profit).toBe(last.dailySummaryProfit);
     const daily = capture({ AF_SAVE_DIR: dirs.saves });
     expect(await run(['day', '199', '--json'], daily.io), daily.err()).toBe(0);
     expect(rows.find((r) => r.day === 199)!.earnings).toBe(JSON.parse(daily.out()).money.earnings);
     const text = await invoke([]);
     expect(text.code, text.err).toBe(0);
+    expect(text.out).toMatch(/^\s*Day\s+Earnings\s+Expenses\s+Profit\s+Flags$/m);
+    const copper = textRows((await invoke(['--unit', 'copper'])).out);
+    expect(copper[177].trim().split(/\s+/)[3]).toBe(`${melting.profit.toLocaleString('en-US')}c`);
     const rendered = textRows(text.out);
     for (const row of rows) {
       const day = completed.find((d) => d.displayDay === row.day)!;
@@ -153,6 +161,7 @@ describe('days history', () => {
     vi.spyOn(loader, 'loadLedger').mockResolvedValue({ ...ledger, snapshot, money: (day) => ({
       ...ledger.money(day), earnings: day.displayDay === 1 ? 10000 : 9999,
       expenses: day.displayDay === 1 ? 2000000 : 0, dailySummaryProfit: day.displayDay === 1 ? -1990000 : 9999,
+      profit: day.displayDay === 1 ? -1990000 : 9999,
     }) });
     const text = await invoke([]);
     const rows = textRows(text.out);

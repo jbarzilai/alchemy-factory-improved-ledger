@@ -48,6 +48,30 @@ function expectUsage(result: { code: number; out: string; err: string }) {
 }
 
 describe('fixture daily ledger', () => {
+  it('shows coin totals between Expenses and Profit on a melting day', async () => {
+    const result = await invoke(['178', '--unit', 'copper']);
+    expect(result.code, result.err).toBe(0);
+    const bottom = result.out.split('Bottom line\n')[1].split('\n\n')[0];
+    expect(bottom.trim().split('\n').slice(1).map((line) => line.trim().split(/\s{2,}/)[0]))
+      .toEqual(['Earnings', 'Expenses', 'Daily Summary Profit', 'Coins Minted', 'Coins Melted', 'Profit']);
+    const current = ledger.money(ledger.snapshot.days.find((d) => d.displayDay === 178)!);
+    expect(bottom).toMatch(/^Coins Minted\s+0c/m);
+    expect(bottom).toMatch(/^Coins Melted\s+84,000c/m);
+    expect(bottom).toMatch(new RegExp(`^Profit\\s+${current.profit.toLocaleString('en-US')}c`, 'm'));
+    expect(result.out.split('Earnings by category\n')[1]).not.toContain('Coins');
+  });
+
+  it('keeps coin rows when melting stops and colours the spending drop green', async () => {
+    const result = await invoke(['180', '--unit', 'copper'], true);
+    expect(result.code, result.err).toBe(0);
+    expect(result.out).toContain('Daily Summary Profit');
+    expect(result.out).toMatch(/^Coins Minted\s+0c/m);
+    const previous = ledger.snapshot.days.find((d) => d.displayDay === 179)!;
+    expect(previous.items.filter((item) => item.item === 'CopperCoin')
+      .reduce((sum, item) => sum + item.consumedCount, 0)).toBe(67200);
+    expect(result.out).toMatch(/^Coins Melted\s+0c\s+67,200c\s+\x1b\[32m-\x1b\[0m67,200c/m);
+  });
+
   it('matches Day 100 and uses identical JSON and text totals', async () => {
     const text = await invoke(['100', '--unit', 'copper']);
     expect(text.code, text.err).toBe(0);
@@ -61,6 +85,7 @@ describe('fixture daily ledger', () => {
     expect(text.out).toContain(ledger.snapshot.savedAt.toLocaleString());
     expect(text.out).toMatch(/Quest Rewards\s+128% \(current\)/);
     expect(text.out).not.toContain('quest rewards use');
+    expect(text.out).not.toMatch(/Daily Summary Profit|Coins/);
     expect(text.out).not.toContain('\x1b');
     const json = await invoke(['100', '--json']);
     expect(json.code, json.err).toBe(0);
@@ -140,6 +165,14 @@ describe('fixture daily ledger', () => {
     expect(ledger.name('CashRegister')).toBe('CashRegister');
   });
 
+  it('supplies names for coin lines in JSON', async () => {
+    const data = parseResult((await invoke(['178', '--json'])).out);
+    expect(data.money.melted.lines.map((line) => line.item)).toEqual(['CopperCoin']);
+    for (const day of [data.money, data.previous!]) {
+      for (const line of [...day.minted.lines, ...day.melted.lines]) expect(data.names[line.item]).toBe(ledger.name(line.item));
+    }
+  });
+
   it('defaults to the latest completed UI day', async () => {
     const result = await invoke(['--json']);
     expect(result.code, result.err).toBe(0);
@@ -156,6 +189,7 @@ describe('fixture daily ledger', () => {
     expect(text.out).toMatch(/Profit\s+\S+\s+—\s+—\s+—/);
     expect(text.out).not.toMatch(/Why profit changed|Top upward movers|Top downward movers|Spent more|Spent less/);
     expect(text.out.match(/^Top items$/gm)).toHaveLength(3);
+    expect(text.out).not.toMatch(/Daily Summary Profit|Coins/);
     const earnings = text.out.split('Earnings by category\n')[1].split('\n\n')[0];
     for (const row of earnings.split('\n').slice(1)) expect(row).toMatch(/^\w+\s+\S+\s+—\s/);
     const shop = text.out.split('Shop by category\n')[1].split('\n\n')[0];

@@ -5,7 +5,8 @@ import { reportUnit, money, oneLine, table, type Unit } from '../format';
 import { ledgerFailure, loadLedger, type Ledger } from '../load';
 import type { Command } from '../run';
 
-export type DaysRow = { day: number; partial: boolean; earnings: number; expenses: number; dailySummaryProfit: number;
+export type DaysRow = { day: number; partial: boolean; earnings: number; expenses: number; minted: number; melted: number;
+  dailySummaryProfit: number; profit: number;
   unpricedPurchases: number; unpricedQuests: number };
 
 // --last limits completed days; --partial appends today afterwards.
@@ -41,7 +42,8 @@ export function createDaysCommand(extract?: ExtractOptions): Command {
       const rows: DaysRow[] = selected.map((day) => {
         const m = ledger.money(day);
         return {
-          day: day.displayDay, partial: !day.complete, earnings: m.earnings, expenses: m.expenses, dailySummaryProfit: m.dailySummaryProfit,
+          day: day.displayDay, partial: !day.complete, earnings: m.earnings, expenses: m.expenses,
+          minted: m.minted.total, melted: m.melted.total, dailySummaryProfit: m.dailySummaryProfit, profit: m.profit,
           unpricedPurchases: m.purchasing.unpriced.length, unpricedQuests: m.quests?.unpriced.length ?? 0,
         };
       });
@@ -60,7 +62,7 @@ export function createDaysCommand(extract?: ExtractOptions): Command {
       }
       const earningsUnit = reportUnit(Math.max(0, ...rows.map((r) => Math.abs(r.earnings))), unit as Unit);
       const expensesUnit = reportUnit(Math.max(0, ...rows.map((r) => Math.abs(r.expenses))), unit as Unit);
-      const profitUnit = reportUnit(Math.max(0, ...rows.map((r) => Math.abs(r.dailySummaryProfit))), unit as Unit);
+      const profitUnit = reportUnit(Math.max(0, ...rows.map((r) => Math.abs(r.profit))), unit as Unit);
       const legends = [
         rows.some((r) => r.unpricedPurchases) ? '$ unpriced purchases excluded from Expenses' : '',
         rows.some((r) => r.unpricedQuests) ? 'q quests excluded for missing quest prices' : '',
@@ -71,7 +73,7 @@ export function createDaysCommand(extract?: ExtractOptions): Command {
         table([
           ['Day', 'Earnings', 'Expenses', 'Profit', 'Flags'],
           ...rows.map((r) => [String(r.day), money(r.earnings, earningsUnit), money(r.expenses, expensesUnit),
-            money(r.dailySummaryProfit, profitUnit), `${r.unpricedPurchases ? '$' : ''}${r.unpricedQuests ? 'q' : ''}${r.partial ? '~' : ''}`]),
+            money(r.profit, profitUnit), `${r.unpricedPurchases ? '$' : ''}${r.unpricedQuests ? 'q' : ''}${r.partial ? '~' : ''}`]),
         ], ['r', 'r', 'r', 'r', 'l']) + '\n' + (legends.length ? `\n${legends.join('; ')}\n` : '');
       io.out(text);
       if (file) {
