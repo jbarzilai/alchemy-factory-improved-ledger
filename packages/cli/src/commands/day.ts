@@ -109,12 +109,15 @@ function render(
     ...SHOP_CATEGORIES.map((category) => [`${category} Profit`, pct(bonuses.categories[category])]),
     ['Quest Rewards', `${pct(bonuses.questRewards)} (current)`],
   ], ['l', 'l'])}`);
-  // The larger of today's and yesterday's Earnings, so an in-progress day doesn't drop to copper.
-  const amountUnit = reportUnit(Math.max(Math.abs(current.earnings), Math.abs(previous?.earnings ?? 0)), unit);
+  // The larger of today's and yesterday's Earnings, so an in-progress day doesn't drop to copper. With coin rows, also
+  // their amounts: minting can dwarf Earnings (a Sandbox day can have none at all).
+  const coins = showCoinRows(current, previous);
+  const scaled = [current, previous].flatMap((m) => !m ? [] : coins ? [m.earnings, m.minted.total, m.melted.total, m.profit] : [m.earnings]);
+  const amountUnit = reportUnit(Math.max(...scaled.map(Math.abs)), unit);
   const totals: (readonly [string, number, number | null])[] = [
     ['Earnings', current.earnings, previous?.earnings ?? null],
     ['Expenses', current.expenses, previous?.expenses ?? null],
-    ...(showCoinRows(current, previous) ? [
+    ...(coins ? [
       ['Daily Summary Profit', current.dailySummaryProfit, previous?.dailySummaryProfit ?? null],
       ['Coins Minted', current.minted.total, previous?.minted.total ?? null],
       ['Coins Melted', current.melted.total, previous?.melted.total ?? null],

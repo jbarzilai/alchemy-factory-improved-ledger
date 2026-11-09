@@ -331,6 +331,15 @@ const dayRecord = (day: number, items: ItemDayRecord[], questsSubmitted: QuestRe
 });
 
 describe('daily presentation edge cases', () => {
+  it('scales the Bottom line unit to coin rows on a day without Earnings', async () => {
+    const minting = { ...item('GoldCoin', 0, 0), producedCount: 120 };
+    synthetic([dayRecord(1, []), dayRecord(2, [minting])]);
+    const text = await invoke(['2']);
+    expect(text.code, text.err).toBe(0);
+    expect(text.out).toMatch(/^Coins Minted\s+120\.00g/m);
+    expect(text.out).toMatch(/^Profit\s+120\.00g/m);
+  });
+
   it('defaults --partial to today, including a save with no completed days', async () => {
     const partial = { ...dayRecord(1, []), complete: false };
     synthetic([partial]);
