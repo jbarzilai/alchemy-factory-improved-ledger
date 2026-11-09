@@ -10,8 +10,8 @@
 
 @media (max-width: 639px) {
   .summary-table table { min-width: 0; }
-  .summary-table th, .summary-table td { padding-inline: var(--space-1); }
-  .summary-table .change-percent { display: none; }
+  .summary-table th, .summary-table td, .subtotals-table th, .subtotals-table td { padding-inline: var(--space-1); }
+  .summary-table .change-percent, .subtotals-table .change-percent { display: none; }
   .summary-table .share-visual { min-width: 0; }
   .summary-table .share-visual > span:first-child { display: none; }
   .summary-table .share-visual > span:last-child { width: auto; white-space: nowrap; }
